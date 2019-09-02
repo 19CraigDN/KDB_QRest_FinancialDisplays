@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import HelloWorld from './HelloWorld';
 import HelloUser from './HelloUser';
+import PersonList from './PersonList';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </p>
         <HelloWorld/>
         <HelloUser/>
+        <PersonList/>
         <a
           className="App-link"
           href="https://reactjs.org"
