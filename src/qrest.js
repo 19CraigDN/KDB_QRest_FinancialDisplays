@@ -73,7 +73,7 @@ export default class QRest extends React.Component {
                                     {row.date}
                                 </TableCell>
                                 <TableCell align="right">{row.time}</TableCell>
-                                <TableCell align="right">{row.sym}</TableCell>                                <TableCell align="right">{row.b}</TableCell>
+                                <TableCell align="right">{row.sym}</TableCell>                                
                                 <TableCell align="right">{row.price}</TableCell>
                                 <TableCell align="right">{row.size}</TableCell>
                                 <TableCell align="right">{row.stop}</TableCell>
