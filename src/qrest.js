@@ -19,16 +19,23 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "select a from t",
+            "query": "select time from trades",
             "response": "true",
             "type": "sync"
         };
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
-            const rowData = res.data.result;
+            var tempData = res.data.result;
+            for(var i in tempData) {
+                var date = new Date(tempData[i].time);
+                tempData[i].time = date.toLocaleDateString();
+            }
+            console.log(tempData);
+            const rowData = tempData;
+            console.log(rowData);
             this.setState({ columnDefs:[{
-                headerName: "A", field: "a"
+                headerName: "Time", field: "time"
             }],rowData });
         })
     }
