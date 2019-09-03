@@ -1,8 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import HelloWorld from './HelloWorld';
-import HelloUser from './HelloUser';
 import QRest from './qrest';
 
 function App() {
