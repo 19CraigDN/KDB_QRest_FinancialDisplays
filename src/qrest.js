@@ -17,7 +17,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "select from t",
+            "query": "5#select time, sym from trade",
             "response": "true",
             "type": "sync"
         };
@@ -25,14 +25,15 @@ export default class QRest extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             const persons = res.data.result;
-            this.setState({ persons });
+            this.setState({ persons })
+            console.log(persons);
         })
     }
 
     render() {
         return (
             <ul>
-                { this.state.persons.map(person => <li>{person.b + person.a}</li>)}
+                { this.state.persons.map(person => <li>{person.sym}</li>)}
             </ul>
         )
     }

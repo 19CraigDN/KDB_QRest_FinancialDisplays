@@ -4,6 +4,7 @@ import './App.css';
 import HelloWorld from './HelloWorld';
 import HelloUser from './HelloUser';
 import QRest from './qrest';
+import CurrentPriceGraph from './components/CurrentPriceGraph.js'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         </p>
         <HelloWorld/>
         <HelloUser/>
-        <QRest/>
+        <CurrentPriceGraph/>
+        
         <a
           className="App-link"
           href="https://reactjs.org"
