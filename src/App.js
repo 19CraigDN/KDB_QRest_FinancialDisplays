@@ -13,8 +13,6 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <HelloWorld/>
-        <HelloUser/>
         <QRest/>
         <a
           className="App-link"
