@@ -38,7 +38,7 @@ export default class QRest extends React.Component {
             <div 
                 className="ag-theme-balham"
                 style={{ 
-                height: '90px', 
+                height: '140px', 
                 width: '210px' }} 
             >
                 <AgGridReact
