@@ -38,7 +38,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "select from t",
+            "query": "-5#select from trade",
             "response": "true",
             "type": "sync"
         };
@@ -56,17 +56,29 @@ export default class QRest extends React.Component {
                 <Table className={this.state.classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>a</TableCell>
-                            <TableCell align="right">b</TableCell>
+                            <TableCell>date</TableCell>
+                            <TableCell align="right">time</TableCell>
+                            <TableCell align="right">sym</TableCell>
+                            <TableCell align="right">price</TableCell>
+                            <TableCell align="right">size</TableCell>
+                            <TableCell align="right">stop</TableCell>
+                            <TableCell align="right">cond</TableCell>
+                            <TableCell align="right">ex</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.state.rows.map(row => (
-                            <TableRow key={row.a}>
+                            <TableRow key={row.date}>
                                 <TableCell component="th" scope="row">
-                                    {row.a}
+                                    {row.date}
                                 </TableCell>
-                                <TableCell align="right">{row.b}</TableCell>
+                                <TableCell align="right">{row.time}</TableCell>
+                                <TableCell align="right">{row.sym}</TableCell>                                <TableCell align="right">{row.b}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
+                                <TableCell align="right">{row.size}</TableCell>
+                                <TableCell align="right">{row.stop}</TableCell>
+                                <TableCell align="right">{row.cond}</TableCell>                           
+                                <TableCell align="right">{row.ex}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
