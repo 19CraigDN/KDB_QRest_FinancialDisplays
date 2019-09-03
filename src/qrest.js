@@ -25,6 +25,7 @@ import Paper from '@material-ui/core/Paper';
 export default class QRest extends React.Component {
     state = {
         rows: [],
+        newRows: [],
         classes: "" //useStyles()
     }
     
@@ -38,19 +39,30 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "-5#select from trade",
+            "query": "-5#select from trade where sym=`AAPL",
             "response": "true",
             "type": "sync"
         };
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
-            const rows = res.data.result;
-            this.setState({ rows });
+            var rows = res.data.result;
+            for (var i in rows){
+                var date = new Date(rows[i].time);
+                var hours = date.getHours();
+                var minutes = "0" + date.getMinutes();
+                var seconds = "0" + date.getSeconds();
+                var ms = "00" + date.getMilliseconds();
+                var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
+                rows[i].time = formattedTime;
+            }
+            const newRows = rows;
+            this.setState({ newRows });
         })
     }
     render() {
     
+
         return (
             <Paper className={this.state.classes.root}>
                 <Table className={this.state.classes.table}>
@@ -67,13 +79,13 @@ export default class QRest extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.rows.map(row => (
+                        {this.state.newRows.map(row => (
                             <TableRow key={row.date}>
                                 <TableCell component="th" scope="row">
                                     {row.date}
                                 </TableCell>
                                 <TableCell align="right">{row.time}</TableCell>
-                                <TableCell align="right">{row.sym}</TableCell>                                <TableCell align="right">{row.b}</TableCell>
+                                <TableCell align="right">{row.sym}</TableCell>
                                 <TableCell align="right">{row.price}</TableCell>
                                 <TableCell align="right">{row.size}</TableCell>
                                 <TableCell align="right">{row.stop}</TableCell>
