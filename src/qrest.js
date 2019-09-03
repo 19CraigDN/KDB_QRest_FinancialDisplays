@@ -29,7 +29,12 @@ export default class QRest extends React.Component {
             var tempData = res.data.result;
             for(var i in tempData) {
                 var date = new Date(tempData[i].time);
-                tempData[i].time = date.toLocaleDateString();
+                var hours = date.getHours();
+                var minutes = "0" + date.getMinutes();
+                var seconds = "0" + date.getSeconds();
+                var ms = "00" + date.getMilliseconds();
+                var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
+                tempData[i].time = formattedTime;
             }
             console.log(tempData);
             const rowData = tempData;
