@@ -24,7 +24,7 @@ export default class QRest_gw extends React.Component {
           }
 
         const empty = {
-            "query": "-10#select from trade where time within (\"p\"$2019.09.04D00:00:00;\"p\"$2019.09.04D23:59:59)",
+            "query": "select max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03 2019.08.19",
             "response": "true",
             "type": "sync"
         };
@@ -32,8 +32,9 @@ export default class QRest_gw extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var rows = res.data.result;
-            rows.splice(rows.length / 2);
+            //rows.splice(rows.length / 2);
             console.log(rows);
+            /*
             for (var i in rows){
                 var date = new Date(rows[i].y[0]);
                 var hours = date.getHours();
@@ -44,7 +45,8 @@ export default class QRest_gw extends React.Component {
                 rows[i].y[0] = formattedTime;
                 rows[i].y.date = (new Date()).toLocaleDateString();
             }
-            console.log(rows);
+            */
+            // console.log(rows);
             const newRows = rows;
             this.setState({ newRows });
         })
@@ -58,28 +60,28 @@ export default class QRest_gw extends React.Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>date</TableCell>
-                            <TableCell align="right">time</TableCell>
+                            {/*<TableCell align="right">time</TableCell>*/}
                             <TableCell align="right">sym</TableCell>
-                            <TableCell align="right">price</TableCell>
-                            <TableCell align="right">size</TableCell>
+                            <TableCell align="right">max price</TableCell>
+                            {/*<TableCell align="right">size</TableCell>
                             <TableCell align="right">stop</TableCell>
                             <TableCell align="right">cond</TableCell>
-                            <TableCell align="right">ex</TableCell>
+                            <TableCell align="right">ex</TableCell>*/}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.state.newRows.map(row => (
-                            <TableRow key={row.y.date}>
+                            <TableRow key={row.time}>
                                 <TableCell component="th" scope="row">
-                                    {row.y.date}
+                                    {row.time}
                                 </TableCell>
-                                <TableCell align="right">{row.y[0]}</TableCell>
-                                <TableCell align="right">{row.y[1]}</TableCell>
-                                <TableCell align="right">{row.y[2]}</TableCell>
-                                <TableCell align="right">{row.y[3]}</TableCell>
+                                {/*<TableCell align="right">{row.time}</TableCell>*/}
+                                <TableCell align="right">{row.sym}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
+                                {/*<TableCell align="right">{row.y[3]}</TableCell>
                                 <TableCell align="right">{row.y[4]}</TableCell>
                                 <TableCell align="right">{row.y[5]}</TableCell>                           
-                                <TableCell align="right">{row.y[6]}</TableCell>
+                                <TableCell align="right">{row.y[6]}</TableCell>*/}
                             </TableRow>
                         ))}
                     </TableBody>
