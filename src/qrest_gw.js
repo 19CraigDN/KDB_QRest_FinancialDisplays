@@ -13,11 +13,13 @@ import Paper from '@material-ui/core/Paper';
         width : '100%',
         marginTop: theme.spacing(3),
         overflowX: 'auto',
+
     },
     table :{
         minWidth: 650,
     },
 }));
+
 */
 
 export default class QRest extends React.Component {
@@ -37,7 +39,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "-5#select from trade where sym=`AAPL",
+            "query": "-5#select from trade where sym = `MSFT, time within (\"p\"$2014.04.21D00:00:00;\"p\"$2014.04.21D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -45,6 +47,7 @@ export default class QRest extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var rows = res.data.result;
+            console.log(rows);
             for (var i in rows){
                 var date = new Date(rows[i].time);
                 var hours = date.getHours();
