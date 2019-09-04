@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import QRest from './qrest';
-import FPlot from './plot.js';
+import FPlot from './components/CurrentPriceGraph.js';
 
 function App() {
   return (
