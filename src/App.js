@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import QRest from './qrest';
-import FPlot from './components/LineChartWithScrollZoom.js';
+import Test from './amtest.js';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         >
           Learn React
         </a>
-        <FPlot/>
+        <Test/>
       </header>
     </div>
   );
