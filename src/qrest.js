@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-
-
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 export default class QRest extends React.Component {
     state = {
-        persons: []
+        columnDefs: [],
+        rowData: []
     }
 
     componentDidMount() {
@@ -17,7 +19,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "5#select time, sym from trade",
+            "query": "select a from t",
             "response": "true",
             "type": "sync"
         };
@@ -32,9 +34,17 @@ export default class QRest extends React.Component {
 
     render() {
         return (
-            <ul>
-                { this.state.persons.map(person => <li>{person.sym}</li>)}
-            </ul>
-        )
+            <div 
+                className="ag-theme-balham"
+                style={{ 
+                height: '140px', 
+                width: '210px' }} 
+            >
+                <AgGridReact
+                    columnDefs={this.state.columnDefs}
+                    rowData={this.state.rowData}>
+                </AgGridReact>
+            </div>
+        );
     }
 }

@@ -1,11 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import HelloWorld from './HelloWorld';
-import HelloUser from './HelloUser';
 import QRest from './qrest';
-import CurrentPriceGraph from './components/CurrentPriceGraph.js';
-
+import FPlot from './plot.js';
 
 function App() {
   return (
@@ -15,10 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <HelloWorld/>
-        <HelloUser/>
-        <CurrentPriceGraph/>
-        
+        <QRest/>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -27,6 +21,7 @@ function App() {
         >
           Learn React
         </a>
+        <FPlot/>
       </header>
     </div>
   );
