@@ -15,7 +15,7 @@ export default class App extends React.Component {
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 50;
 
-        //let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
         // Create series
         let series = chart.series.push(new am4charts.LineSeries());
