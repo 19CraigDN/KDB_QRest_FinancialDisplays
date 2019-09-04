@@ -36,9 +36,7 @@ export default class QRest extends React.Component {
                 var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
                 tempData[i].time = formattedTime;
             }
-            console.log(tempData);
             const rowData = tempData;
-            console.log(rowData);
             this.setState({ columnDefs:[{
                 headerName: "Time", field: "time"
             }],rowData });
