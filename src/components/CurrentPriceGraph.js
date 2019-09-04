@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Plot from 'react-plotly';
+{//import Plot from 'react-plotly.js';?}
+import Plotly from 'plotly.js-basic-dist'
+import createPlotlyComponent from 'react-plotly.js/factory'
 
 export default class CurrentPriceGraph extends React.Component {
     constructor(props) {
@@ -25,7 +27,7 @@ export default class CurrentPriceGraph extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price, first sym by 1 xbar time.minute from trade where sym = `MSFT, time within (\"p\"$2019.09.03D00:00:00;\"p\"$2019.09.03D23:59:59)",
+            "query": "0!select avg price, first sym by 1 xbar time.minute from trade where sym = `MSFT, time within (\"p\"$2019.09.02D00:00:00;\"p\"$2019.09.02D23:59:59)",
             "response": "true",
             "type": "sync"
         };
