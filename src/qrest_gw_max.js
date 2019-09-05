@@ -61,8 +61,8 @@ export default class QRest_gw_max extends React.Component {
                                 </TableCell>
                                 <TableCell align="right">{row.sym}</TableCell>
                                 <TableCell align="right">{row.volume}</TableCell> 
-                                <TableCell align="right">{row.maxPrice}</TableCell>
-                                <TableCell align="right">{row.minPrice}</TableCell>
+                                <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
+                                <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
