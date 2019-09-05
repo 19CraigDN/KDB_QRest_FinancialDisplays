@@ -1,4 +1,4 @@
-// For max price
+// For max price and volume from max to min
 
 import React from 'react';
 import axios from 'axios';
@@ -26,7 +26,7 @@ export default class QRest_gw_max extends React.Component {
           }
 
         const empty = {
-            "query": "select max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03 2019.08.19",
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.04",
             "response": "true",
             "type": "sync"
         };
@@ -47,9 +47,10 @@ export default class QRest_gw_max extends React.Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>date</TableCell>
-                            <TableCell align="right">sym</TableCell>
-                            <TableCell align="right">max price</TableCell>
-
+                            <TableCell align="right">Sym</TableCell>
+                            <TableCell align="right">Volume</TableCell>
+                            <TableCell align="right">Max Price</TableCell>
+                            <TableCell align="right">Min Price</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -59,7 +60,9 @@ export default class QRest_gw_max extends React.Component {
                                     {row.time}
                                 </TableCell>
                                 <TableCell align="right">{row.sym}</TableCell>
-                                <TableCell align="right">{row.price}</TableCell>
+                                <TableCell align="right">{row.volume}</TableCell> 
+                                <TableCell align="right">{row.maxPrice}</TableCell>
+                                <TableCell align="right">{row.minPrice}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
