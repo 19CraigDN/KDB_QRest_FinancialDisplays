@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import QRest_gw from './qrest_gw';
+import QRest_gw_max from './qrest_gw_max';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <QRest_gw/>
+        <QRest_gw_max/>
         <a
           className="App-link"
           href="https://reactjs.org"
