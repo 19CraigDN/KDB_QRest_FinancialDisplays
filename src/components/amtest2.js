@@ -59,8 +59,7 @@ export default class App extends React.Component {
             "response": "true",
             "type": "sync"
         };
-        var previousValue;
-        var tempcolor = chart.colors.getIndex(0);
+
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var gwData = res.data.result;
