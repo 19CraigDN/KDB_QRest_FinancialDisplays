@@ -1,8 +1,7 @@
-// Basic Qrest querying to a q process
+// For querying the gw for max vol
 
 import React from 'react';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,25 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-/* const useStyles = makeStyles(theme => ({
-    root: {
-        width : '100%',
-        marginTop: theme.spacing(3),
-        overflowX: 'auto',
-
-    },
-    table :{
-        minWidth: 650,
-    },
-}));
-
-*/
-
-export default class QRest extends React.Component {
+export default class QRest_gw extends React.Component {
     state = {
         rows: [],
         newRows: [],
-        classes: "" //useStyles()
+        classes: ""
     }
     
 
@@ -41,7 +26,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "-5#select from trade where sym=`AAPL",
+            "query": "select sum size by sym from trade where time within (\"p\"$2019.09.04D00:00:00;\"p\"$2019.09.04D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -49,14 +34,16 @@ export default class QRest extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var rows = res.data.result;
+            rows.splice(rows.length / 2);
             for (var i in rows){
-                var date = new Date(rows[i].time);
+                var date = new Date(rows[i].y[0]);
                 var hours = date.getHours();
                 var minutes = "0" + date.getMinutes();
                 var seconds = "0" + date.getSeconds();
                 var ms = "00" + date.getMilliseconds();
                 var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
-                rows[i].time = formattedTime;
+                rows[i].y[0] = formattedTime;
+                rows[i].y.date = (new Date()).toLocaleDateString();
             }
             const newRows = rows;
             this.setState({ newRows });
@@ -82,17 +69,17 @@ export default class QRest extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.newRows.map(row => (
-                            <TableRow key={row.date}>
+                            <TableRow key={row.y.date}>
                                 <TableCell component="th" scope="row">
-                                    {row.date}
+                                    {row.y.date}
                                 </TableCell>
-                                <TableCell align="right">{row.time}</TableCell>
-                                <TableCell align="right">{row.sym}</TableCell>
-                                <TableCell align="right">{row.price}</TableCell>
-                                <TableCell align="right">{row.size}</TableCell>
-                                <TableCell align="right">{row.stop}</TableCell>
-                                <TableCell align="right">{row.cond}</TableCell>                           
-                                <TableCell align="right">{row.ex}</TableCell>
+                                <TableCell align="right">{row.y[0]}</TableCell>
+                                <TableCell align="right">{row.y[1]}</TableCell>
+                                <TableCell align="right">{row.y[2]}</TableCell>
+                                <TableCell align="right">{row.y[3]}</TableCell>
+                                <TableCell align="right">{row.y[4]}</TableCell>
+                                <TableCell align="right">{row.y[5]}</TableCell>                           
+                                <TableCell align="right">{row.y[6]}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
