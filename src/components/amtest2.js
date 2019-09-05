@@ -54,13 +54,18 @@ export default class App extends React.Component {
             }
           }
 
-        const empty = {
-            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.02D00:00:00;\"p\"$2019.09.05D23:59:59)",
+        const ravg = {
+            "query": "0!update price:avgs price by sym from select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.03D00:00:00;\"p\"$2019.09.03D23:59:59)",
+            "response": "true",
+            "type": "sync"
+        };
+        const cprice = {
+            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.03D00:00:00;\"p\"$2019.09.03D23:59:59)",
             "response": "true",
             "type": "sync"
         };
 
-        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        axios.post(`https://localhost:8090/executeQuery`, ravg, config)
         .then(res => {
             var gwData = res.data.result;
             console.log(gwData);
