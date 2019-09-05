@@ -3,19 +3,21 @@ import './App.css';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import am4themes_dark from "@amcharts/amcharts4/themes/dark.js";
+import axios from 'axios';
 
+am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
 export default class App extends React.Component { 
     componentDidMount(){
         let chart = am4core.create("chartdiv", am4charts.XYChart);
-        chart.data = generateChartData();
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 50;
 
-        //let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
         // Create series
         let series = chart.series.push(new am4charts.LineSeries());
@@ -34,31 +36,41 @@ export default class App extends React.Component {
         chart.scrollbarX.series.push(series);
 
         // Add cursor
+        
+    
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.xAxis = dateAxis;
         chart.cursor.snapToSeries = series;
 
-        function generateChartData() {
-            var chartData = [];
-            var firstDate = new Date();
-            firstDate.setDate(firstDate.getDate() - 1000);
-            var visits = 1200;
-            for (var i = 0; i < 500; i++) {
-                // we create date objects here. In your data, you can have date strings
-                // and then set format of your dates using chart.dataDateFormat property,
-                // however when possible, use date objects, as this will speed up chart rendering.
-                var newDate = new Date(firstDate);
-                newDate.setDate(newDate.getDate() + i);
-                
-                visits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
+        let config = {
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Basic dXNlcjpwYXNz"
+            }
+          }
 
-                chartData.push({
-                    date: newDate,
-                    visits: visits
+        const empty = {
+            "query": "0!select avg price, first sym by 0D01:00:00 xbar time from trade where sym = `AAPL, time within (\"p\"$2019.09.02D00:00:00;\"p\"$2019.09.04D23:59:59)",
+            "response": "true",
+            "type": "sync"
+        };
+
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        .then(res => {
+            var gwData = res.data.result;
+            //console.log(gwData);
+            //formats the JSON from qrest to an array of objects
+            let stockChartValuesFunction = [];
+            for (var key in gwData) {
+                stockChartValuesFunction.push({
+                    date: gwData[key].time,
+                    visits: gwData[key].price
                 });
             }
-            return chartData;
-            }
+        chart.data = stockChartValuesFunction;
+        console.log(stockChartValuesFunction)
+        })
+
         }
         render() {
             return (
