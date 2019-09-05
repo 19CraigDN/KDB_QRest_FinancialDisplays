@@ -1,3 +1,5 @@
+// This is for the gateway query, querying to TorQ stack gateway (port xxxx7)
+
 import React from 'react';
 import axios from 'axios';
 import Table from '@material-ui/core/Table';
@@ -24,7 +26,7 @@ export default class QRest_gw extends React.Component {
           }
 
         const empty = {
-            "query": "select max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03 2019.08.19",
+            "query": "-10#select from trade where time within (\"p\"$2019.09.04D00:00:00;\"p\"$2019.09.04D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -43,8 +45,6 @@ export default class QRest_gw extends React.Component {
                 rows[i].y[1] = formattedTime;
                 rows[i].y.date = (new Date()).toLocaleDateString();
             }
-            
-            // console.log(rows);
             const newRows = rows;
             this.setState({ newRows });
         })
@@ -58,20 +58,20 @@ export default class QRest_gw extends React.Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>date</TableCell>
-                            {/*<TableCell align="right">time</TableCell>*/}
+                            <TableCell align="right">time</TableCell>
                             <TableCell align="right">sym</TableCell>
-                            <TableCell align="right">max price</TableCell>
-                            {/*<TableCell align="right">size</TableCell>
+                            <TableCell align="right">price</TableCell>
+                            <TableCell align="right">size</TableCell>
                             <TableCell align="right">stop</TableCell>
                             <TableCell align="right">cond</TableCell>
-                            <TableCell align="right">ex</TableCell>*/}
+                            <TableCell align="right">ex</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.state.newRows.map(row => (
-                            <TableRow key={row.time}>
+                            <TableRow key={row.y.date}>
                                 <TableCell component="th" scope="row">
-                                    {row.time}
+                                    {row.y.date}
                                 </TableCell>
                                 <TableCell align="right">{row.y[1]}</TableCell>
                                 <TableCell align="right">{row.y[2]}</TableCell>
