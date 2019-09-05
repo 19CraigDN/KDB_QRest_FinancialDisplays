@@ -5,10 +5,25 @@ import QRest_gw_max from './qrest_gw_max';
 import { render } from "react-dom";
 import QRest_gw from './qrest_gw';
 import Tabs from './Tabs';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 require('./styles.css');
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 function App() {
+  const classes = useStyles();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -16,8 +31,26 @@ function App() {
       </header>
       <Tabs>
         <div label="Table">
-          <QRest_gw_max/>
-          <QRest_gw/>
+          <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}><QRest_gw/></Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+          </Grid>
+          <Grid item xs={1}>
+            <Paper className={classes.paper}>hi</Paper>
+          </Grid>
+          <Grid item xs={5}>
+            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+          </Grid>
+          </Grid>
         </div>
         <div label="Something else">
           After 'while, <em>Croc</em>!
