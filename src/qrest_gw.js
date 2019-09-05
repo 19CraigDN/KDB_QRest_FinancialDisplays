@@ -32,17 +32,15 @@ export default class QRest_gw extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var rows = res.data.result;
-            //rows.splice(rows.length / 2);
-            console.log(rows);
-            
+            rows.splice(0,rows.length / 2);
             for (var i in rows){
-                var date = new Date(rows[i].y[0]);
+                var date = new Date(rows[i].y[1]);
                 var hours = date.getHours();
                 var minutes = "0" + date.getMinutes();
                 var seconds = "0" + date.getSeconds();
                 var ms = "00" + date.getMilliseconds();
                 var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
-                rows[i].y[0] = formattedTime;
+                rows[i].y[1] = formattedTime;
                 rows[i].y.date = (new Date()).toLocaleDateString();
             }
             
@@ -75,13 +73,13 @@ export default class QRest_gw extends React.Component {
                                 <TableCell component="th" scope="row">
                                     {row.time}
                                 </TableCell>
-                                {/*<TableCell align="right">{row.time}</TableCell>*/}
-                                <TableCell align="right">{row.sym}</TableCell>
-                                <TableCell align="right">{row.price}</TableCell>
-                                {/*<TableCell align="right">{row.y[3]}</TableCell>
+                                <TableCell align="right">{row.y[1]}</TableCell>
+                                <TableCell align="right">{row.y[2]}</TableCell>
+                                <TableCell align="right">{row.y[3]}</TableCell>
                                 <TableCell align="right">{row.y[4]}</TableCell>
-                                <TableCell align="right">{row.y[5]}</TableCell>                           
-                                <TableCell align="right">{row.y[6]}</TableCell>*/}
+                                <TableCell align="right">{row.y[5]}</TableCell>
+                                <TableCell align="right">{row.y[6]}</TableCell>                           
+                                <TableCell align="right">{row.y[7]}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
