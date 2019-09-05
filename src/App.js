@@ -8,6 +8,7 @@ import Tabs from './Tabs';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -27,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" /> 
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
       <Tabs>
         <div label="Table">
