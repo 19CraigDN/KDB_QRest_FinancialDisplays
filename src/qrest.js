@@ -27,10 +27,9 @@ export default class QRest extends React.Component {
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
-            const rowData = res.data.result;
-            this.setState({ columnDefs:[{
-                headerName: "A", field: "a"
-            }],rowData });
+            const persons = res.data.result;
+            this.setState({ persons })
+            console.log(persons);
         })
     }
 
