@@ -34,7 +34,7 @@ export default class QRest_gw extends React.Component {
             var rows = res.data.result;
             //rows.splice(rows.length / 2);
             console.log(rows);
-            /*
+            
             for (var i in rows){
                 var date = new Date(rows[i].y[0]);
                 var hours = date.getHours();
@@ -45,7 +45,7 @@ export default class QRest_gw extends React.Component {
                 rows[i].y[0] = formattedTime;
                 rows[i].y.date = (new Date()).toLocaleDateString();
             }
-            */
+            
             // console.log(rows);
             const newRows = rows;
             this.setState({ newRows });
