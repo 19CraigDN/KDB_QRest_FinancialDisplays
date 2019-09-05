@@ -3,7 +3,7 @@ import '../App.css';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4themes_dark from "@amcharts/amcharts4/themes/dark.js";
+import am4themes_dark from "@amcharts/amcharts4/themes/dataviz.js";
 import axios from 'axios';
 
 am4core.useTheme(am4themes_dark);
@@ -15,8 +15,7 @@ export default class App extends React.Component {
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-        dateAxis.renderer.minGridDistance = 50;
-
+        dateAxis.renderer.minGridDistance = 75;
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
         // Create multiple series
@@ -27,29 +26,19 @@ export default class App extends React.Component {
             series.dataFields.dateX = "date";
             series.name = name;
             series.tooltipText = "[font-size:20]{name}: [bold][font-size:20]£{valueY}[/]";
-            //series.tooltipText[font-size].fontsize = ;
-
             series.strokeWidth = 2;
-            //console.log[series];
-            //console.log[series.tooltipText]
             return series;
         }
         // Create array of syms for creating multiple series
         var sym_array = this.props.indsym.split('`');
         sym_array.shift();
-        console.log(sym_array);
         for (var key in sym_array){
             createSeries(sym_array[key], sym_array[key]);
         }
 
         // Add scrollbar
-        // Normal scrollbar
         chart.scrollbarX = new am4core.Scrollbar();
-        // Scrollbar with timeseries
-        //chart.scrollbarX = new am4charts.XYChartScrollbar();
-        chart.dateFormatter.inputDateFormat = "yyyy-MM-dd"
         chart.numberFormatter.numberFormat = "#.##"
-        //chart.scrollbarX.series.push(series);
 
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
@@ -72,12 +61,11 @@ export default class App extends React.Component {
         };
         var previousValue;
         var tempcolor = chart.colors.getIndex(0);
-        console.log(sym_array.length);
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var gwData = res.data.result;
             console.log(gwData);
-            //formats the JSON from qrest to an array of objects
+            // Formats the JSON from qrest to an array of objects
             let stockChartValuesFunction = [];
             let i = 0;
             let j = 0;
@@ -93,11 +81,9 @@ export default class App extends React.Component {
                     j++
             }
         chart.data = stockChartValuesFunction;
-        console.log(stockChartValuesFunction)
- 
         })
 
-        }
+    }
         render() {
             return (
             <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
