@@ -16,12 +16,7 @@ export default class App extends React.Component {
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 50;
-
-<<<<<<< HEAD
-            let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-=======
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
->>>>>>> origin/Matthew
 
         // Create series
         let series = chart.series.push(new am4charts.LineSeries());
@@ -47,7 +42,6 @@ export default class App extends React.Component {
         chart.cursor.xAxis = dateAxis;
         chart.cursor.snapToSeries = series;
 
-<<<<<<< HEAD
         function generateChartData() {
             var chartData = [];
             var firstDate = new Date();
@@ -78,31 +72,6 @@ export default class App extends React.Component {
                 chartData.push({
                     date: newDate,
                     visits: visits,
-=======
-        let config = {
-            headers: {
-                "Accept": "*/*",
-                "Authorization": "Basic dXNlcjpwYXNz"
-            }
-          }
-
-        const empty = {
-            "query": "0!select avg price, first sym by 0D01:00:00 xbar time from trade where sym = `AAPL, time within (\"p\"$2019.09.02D00:00:00;\"p\"$2019.09.04D23:59:59)",
-            "response": "true",
-            "type": "sync"
-        };
-
-        axios.post(`https://localhost:8090/executeQuery`, empty, config)
-        .then(res => {
-            var gwData = res.data.result;
-            //console.log(gwData);
-            //formats the JSON from qrest to an array of objects
-            let stockChartValuesFunction = [];
-            for (var key in gwData) {
-                stockChartValuesFunction.push({
-                    date: gwData[key].time,
-                    visits: gwData[key].price
->>>>>>> origin/Matthew
                 });
                 previousValue= visits
             }
