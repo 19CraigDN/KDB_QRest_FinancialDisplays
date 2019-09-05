@@ -1,11 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-<<<<<<< Updated upstream
-import QRest from './qrest';
-=======
 import QRest_gw_max from './qrest_gw_max';
->>>>>>> Stashed changes
 
 function App() {
   return (
@@ -15,11 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-<<<<<<< Updated upstream
-        <QRest/>
-=======
         <QRest_gw_max/>
->>>>>>> Stashed changes
         <a
           className="App-link"
           href="https://reactjs.org"
