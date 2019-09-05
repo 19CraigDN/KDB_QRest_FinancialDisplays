@@ -4,13 +4,13 @@
 
 .App-logo {
   /* animation: App-logo-spin infinite 20s linear; */
-  height: 10vmin;
+  height: 20vmin;
   pointer-events: none;
-  position: Absolute; top :20px; left: 10px;
+  position: Absolute; top :0px; left: 10px;
 }
 
 .App-header {
-  background-color: black;
+  background-color: #163237;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
