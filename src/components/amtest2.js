@@ -25,7 +25,7 @@ export default class App extends React.Component {
             series.dataFields.valueY = field;
             series.dataFields.dateX = "date";
             series.name = name;
-            series.tooltipText = "[font-size:20]{name}: [bold][font-size:20]£{valueY}[/]";
+            series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY}[/]";
             series.strokeWidth = 2;
             return series;
         }
@@ -64,8 +64,15 @@ export default class App extends React.Component {
             "response": "true",
             "type": "sync"
         };
+        const vol = {
+            "query": "0!select dev price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
+            "response": "true",
+            "type": "sync"
+        };
 
-        axios.post(`https://localhost:8090/executeQuery`, ravg, config)
+    
+
+        axios.post(`https://localhost:8090/executeQuery`, cprice, config)
         .then(res => {
             var gwData = res.data.result;
             console.log(gwData);
