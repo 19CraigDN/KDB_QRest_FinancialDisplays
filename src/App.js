@@ -39,17 +39,11 @@ function App() {
           <Grid item xs={6}>
             <Paper className={classes.paper}><QRest_gw_max/></Paper>
           </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw/></Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
-          </Grid>
           <Grid item xs={1}>
             <Paper className={classes.paper}>hi</Paper>
           </Grid>
           <Grid item xs={5}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+            <Paper className={classes.paper}><QRest_gw/></Paper>
           </Grid>
           </Grid>
         </div>

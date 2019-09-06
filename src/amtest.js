@@ -3,10 +3,10 @@ import './App.css';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4themes_spiritedaway from "@amcharts/amcharts4/themes/spiritedaway.js";
+import am4themes_moonrisekingdom from "@amcharts/amcharts4/themes/moonrisekingdom.js";
 import axios from 'axios';
 
-am4core.useTheme(am4themes_spiritedaway);
+am4core.useTheme(am4themes_moonrisekingdom);
 am4core.useTheme(am4themes_animated);
 
 export default class App extends React.Component { 
@@ -37,7 +37,7 @@ export default class App extends React.Component {
         // Create array of syms for creating multiple series
         var sym_array = this.props.indsym.split('`');
         sym_array.shift();
-        console.log(sym_array);
+        //console.log(sym_array);
         for (var key in sym_array){
             createSeries(sym_array[key], sym_array[key]);
         }
@@ -72,11 +72,11 @@ export default class App extends React.Component {
         };
         var previousValue;
         var tempcolor = chart.colors.getIndex(0);
-        console.log(sym_array.length);
+        //console.log(sym_array.length);
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var gwData = res.data.result;
-            console.log(gwData);
+            //console.log(gwData);
             //formats the JSON from qrest to an array of objects
             let stockChartValuesFunction = [];
             let i = 0;
@@ -93,7 +93,7 @@ export default class App extends React.Component {
                     j++
             }
         chart.data = stockChartValuesFunction;
-        console.log(stockChartValuesFunction)
+        //console.log(stockChartValuesFunction)
  
         })
 
