@@ -11,7 +11,7 @@ export default class Table_Cell extends React.Component {
     }
 
     correctAttr(){
-        if(this.props.percent=="none") {
+        if(this.props.percent==="none") {
             return this.props.diff;
         }
         else
