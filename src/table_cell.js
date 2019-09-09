@@ -10,9 +10,19 @@ export default class Table_Cell extends React.Component {
         }
     }
 
+    correctAttr(){
+        if(this.props.percent=="none") {
+            return this.props.diff;
+        }
+        else
+        {
+            return this.props.percent;
+        }
+    }
+
     render() {
         return (
-            <TableCell style={{backgroundColor:this.greenRed(), color: 'white',}} align="right">{this.props.diff}</TableCell>
+            <TableCell style={{backgroundColor:this.greenRed(), color: 'white',}} align="right">{this.correctAttr()}</TableCell>
         );
     }
 }

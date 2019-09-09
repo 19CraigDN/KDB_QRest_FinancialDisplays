@@ -65,8 +65,8 @@ export default class QRest_gw extends React.Component {
                                         {row.sym}
                                     </TableCell>
                                     <TableCell align="right">{row.lastPrice.toFixed(2)}</TableCell>
-                                    <Table_Cell diff={row.diff.toFixed(2)}/>
-                                    <TableCell align="right">{row.percent.toFixed(2)}</TableCell>
+                                    <Table_Cell diff={row.diff.toFixed(2)} percent="none"/>
+                                    <Table_Cell diff={row.diff.toFixed(2)} percent={row.percent.toFixed(2)}/>
                                 </TableRow>
                             ))}
                         </TableBody>
