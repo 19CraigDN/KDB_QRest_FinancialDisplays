@@ -11,14 +11,14 @@ import Paper from '@material-ui/core/Paper';
 import Table_Cell from './table_cell.js';
 
 export default class QRest_gw extends React.Component {
+
     state = {
         rows: [],
         newRows: [],
         classes: ""
     }
     
-
-    componentDidMount() {
+    blah() {
         let config = {
             headers: {
                 "Accept": "*/*",
@@ -27,7 +27,7 @@ export default class QRest_gw extends React.Component {
           }
 
         const empty = {
-            "query": "select diff:last deltas price,lastPrice:last price by sym from trade",
+            "query": "select percent:100*((last price)-first price)%last price,diff:(last price)-first price,lastPrice:last price by sym from trade where (\"d\"$time)=.z.d",
             "response": "true",
             "type": "sync"
         };
@@ -38,6 +38,10 @@ export default class QRest_gw extends React.Component {
             const newRows = rows;
             this.setState({ newRows });
         })
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.blah(), 2000);
     }
 
     render() {
@@ -51,6 +55,7 @@ export default class QRest_gw extends React.Component {
                                 <TableCell>Sym</TableCell>
                                 <TableCell align="right">Last Price</TableCell>
                                 <TableCell align="right">Change</TableCell>
+                                <TableCell align="right">Percent Change</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -61,6 +66,7 @@ export default class QRest_gw extends React.Component {
                                     </TableCell>
                                     <TableCell align="right">{row.lastPrice.toFixed(2)}</TableCell>
                                     <Table_Cell diff={row.diff.toFixed(2)}/>
+                                    <TableCell align="right">{row.percent.toFixed(2)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
