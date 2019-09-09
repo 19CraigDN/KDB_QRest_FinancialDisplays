@@ -49,8 +49,8 @@ export default class QRest_gw extends React.Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Sym</TableCell>
-                                <TableCell align="right">Change</TableCell>
                                 <TableCell align="right">Last Price</TableCell>
+                                <TableCell align="right">Change</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -59,8 +59,8 @@ export default class QRest_gw extends React.Component {
                                     <TableCell component="th" scope="row">
                                         {row.sym}
                                     </TableCell>
-                                    <TableCell align="right">{row.diff.toFixed(2)}</TableCell>
-                                    <Table_Cell diff={row.diff.toFixed(2)} lastPrice={row.lastPrice.toFixed(2)}/>
+                                    <TableCell align="right">{row.lastPrice.toFixed(2)}</TableCell>
+                                    <Table_Cell diff={row.diff.toFixed(2)}/>
                                 </TableRow>
                             ))}
                         </TableBody>
