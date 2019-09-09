@@ -2,13 +2,12 @@ import React from 'react';
 import logo from './UnknownFinance.PNG';
 import './App.css';
 import QRest_gw_max from './qrest_gw_max';
-import { render } from "react-dom";
 import QRest_gw from './qrest_gw';
 import Tabs from './Tabs';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Test from './amtest.js'
+import Test from './amtest.js';
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
