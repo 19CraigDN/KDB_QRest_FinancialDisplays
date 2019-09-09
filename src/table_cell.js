@@ -2,18 +2,17 @@ import TableCell from '@material-ui/core/TableCell';
 import React from 'react';
 
 export default class Table_Cell extends React.Component {
-    greenRed = () => {
-        console.log(this.props.lastPrice);
+    greenRed() {
         if (this.props.diff < 0) {
-            return <TableCell style={{backgroundColor:'red', color: 'white',}} align="right">{this.props.lastPrice}</TableCell>;
+            return 'red';
         } else {
-            return <TableCell style={{backgroundColor:'green', color: 'white',}} align="right">{this.props.lastPrice}</TableCell>;
+            return 'green';
         }
     }
 
     render() {
         return (
-            <div>{this.greenRed()}</div>
+            <TableCell style={{backgroundColor:this.greenRed(), color: 'white',}} align="right">{this.props.lastPrice}</TableCell>
         );
     }
 }

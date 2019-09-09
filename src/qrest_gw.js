@@ -27,7 +27,7 @@ export default class QRest_gw extends React.Component {
           }
 
         const empty = {
-            "query": "select secondLast:first -2#price,lastPrice:last price by sym from trade",
+            "query": "select diff:last deltas price,lastPrice:last price by sym from trade",
             "response": "true",
             "type": "sync"
         };
@@ -49,6 +49,7 @@ export default class QRest_gw extends React.Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Sym</TableCell>
+                                <TableCell align="right">Change</TableCell>
                                 <TableCell align="right">Last Price</TableCell>
                             </TableRow>
                         </TableHead>
@@ -58,7 +59,8 @@ export default class QRest_gw extends React.Component {
                                     <TableCell component="th" scope="row">
                                         {row.sym}
                                     </TableCell>
-                                    <Table_Cell diff={row.lastPrice.toFixed(2)-row.secondLast.toFixed(2)} lastPrice={row.lastPrice.toFixed(2)}/>
+                                    <TableCell align="right">{row.diff.toFixed(2)}</TableCell>
+                                    <Table_Cell diff={row.diff.toFixed(2)} lastPrice={row.lastPrice.toFixed(2)}/>
                                 </TableRow>
                             ))}
                         </TableBody>
