@@ -8,7 +8,7 @@ import Tabs from './Tabs';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import Test from './amtest.js'
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -34,13 +34,7 @@ function App() {
         <div label="Table">
           <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw/></Paper>
+            <Paper className={classes.paper}><Test indsym="`AAPL`GOOG`DELL`MSFT"/></Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}><QRest_gw_max/></Paper>
@@ -49,7 +43,7 @@ function App() {
             <Paper className={classes.paper}>hi</Paper>
           </Grid>
           <Grid item xs={5}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+            <Paper className={classes.paper}><QRest_gw/></Paper>
           </Grid>
           </Grid>
         </div>

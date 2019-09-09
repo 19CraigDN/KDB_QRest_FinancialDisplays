@@ -8,15 +8,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default class QRest_gw_max extends React.Component {
     state = {
         rows: [],
         newRows: [],
-        classes: ""
+        classes: "",
+        empty: {
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.04",
+            "response": "true",
+            "type": "sync"
+        }
     }
     
-
     componentDidMount() {
         let config = {
             headers: {
@@ -33,16 +39,46 @@ export default class QRest_gw_max extends React.Component {
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
-            var rows = res.data.result;
+            let rows = res.data.result;
             const newRows = rows;
             this.setState({ newRows });
         })
     }
+
+    updateGraph() {
+        let config = {
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Basic dXNlcjpwYXNz"
+            }
+          }
+
+        const empty = {
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03",
+            "response": "true",
+            "type": "sync"
+        };
+
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        .then(res => {
+            let rows = res.data.result;
+            const newRows = rows;
+            this.setState({ newRows });
+        })
+    }
+
     render() {
     
 
         return (
+            <div>
+                <p>Title</p>
             <Paper className={this.state.classes.root}>
+                <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+  <Dropdown.Item onClick={() => this.updateGraph()}>Some action</Dropdown.Item>
+  <Dropdown.Item >Another action</Dropdown.Item>
+  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+</DropdownButton>
                 <Table className={this.state.classes.table}>
                     <TableHead>
                         <TableRow>
@@ -55,19 +91,20 @@ export default class QRest_gw_max extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.newRows.map(row => (
-                            <TableRow key={row.time}>
+                            <TableRow>
                                 <TableCell component="th" scope="row">
                                     {row.time}
                                 </TableCell>
                                 <TableCell align="right">{row.sym}</TableCell>
                                 <TableCell align="right">{row.volume}</TableCell> 
-                                <TableCell align="right">{row.maxPrice}</TableCell>
-                                <TableCell align="right">{row.minPrice}</TableCell>
+                                <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
+                                <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </Paper>
+            </div>
         );
     }
 }

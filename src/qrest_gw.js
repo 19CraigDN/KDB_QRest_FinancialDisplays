@@ -69,7 +69,7 @@ export default class QRest_gw extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.newRows.map(row => (
-                            <TableRow key={row.y.date}>
+                            <TableRow>
                                 <TableCell component="th" scope="row">
                                     {row.y.date}
                                 </TableCell>
