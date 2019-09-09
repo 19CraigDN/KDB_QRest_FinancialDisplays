@@ -96,7 +96,7 @@ export default class QRest_gw_max extends React.Component {
     render() {
         return (
             <div>
-                <p>Title</p>
+                <p>Max and Min Prices by Highest Traded Sym</p>
             <Paper className={this.state.classes.root}>
                 <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
                     <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
