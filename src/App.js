@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Test from './components/amtest2';
+import Test from './components/CurPriceIndSym.js';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         
-        <Test indsym="`AAPL`MSFT`DELL"/>
+        <Test indsym="`AAPL"/>
       </header>
     </div>
   );

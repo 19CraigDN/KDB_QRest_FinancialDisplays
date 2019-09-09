@@ -3,10 +3,10 @@ import '../App.css';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4themes_dark from "@amcharts/amcharts4/themes/dataviz.js";
+import am4themes_kelly from "@amcharts/amcharts4/themes/kelly.js";
 import axios from 'axios';
 
-am4core.useTheme(am4themes_dark);
+am4core.useTheme(am4themes_kelly);
 am4core.useTheme(am4themes_animated);
 
 export default class App extends React.Component { 
@@ -16,6 +16,9 @@ export default class App extends React.Component {
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 75;
+        dateAxis.startLocation = 0.5;
+        dateAxis.endLocation = 0.75;
+        dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]d MMM");
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
         // Create multiple series
@@ -26,7 +29,7 @@ export default class App extends React.Component {
             series.dataFields.dateX = "date";
             series.name = name;
             series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY}[/]";
-            series.strokeWidth = 2;
+            series.strokeWidth = 3;
             return series;
         }
         // Create array of syms for creating multiple series
@@ -64,15 +67,13 @@ export default class App extends React.Component {
             "response": "true",
             "type": "sync"
         };
-        const vol = {
+        const variance = {
             "query": "0!select dev price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
             "response": "true",
             "type": "sync"
         };
 
-    
-
-        axios.post(`https://localhost:8090/executeQuery`, cprice, config)
+        axios.post(`https://localhost:8090/executeQuery`, variance, config)
         .then(res => {
             var gwData = res.data.result;
             console.log(gwData);

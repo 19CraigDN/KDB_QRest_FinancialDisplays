@@ -19,32 +19,16 @@ export default class App extends React.Component {
         dateAxis.startLocation = 0.5;
         dateAxis.endLocation = 0.75;
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "Percent";
-        valueAxis.calculateTotals = true;
-        valueAxis.min = 0;
-        valueAxis.max = 100;
-        valueAxis.strictMinMax = true;
-        valueAxis.renderer.labels.template.adapter.add("text", function(text) {
-            return text + "%";
-          });
 
         // Create multiple series
         var series;
         function createSeries(field, name) {
             series = chart.series.push(new am4charts.LineSeries());
             series.dataFields.valueY = field;
-            series.dataFields.valueYShow = "totalPercent"
             series.dataFields.dateX = "date";
             series.name = name;
-            series.calculatePercent = true;
-            series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY.percent}%[/]";
-            series.strokeWidth = 2;
-            series.fillOpacity = 0.5;
-            series.stacked = true;
-            series.legendSettings.labelText = name;
-            series.legendSettings.valueText = "{valueY.close}";
-            series.legendSettings.itemLabelText = name;
-            series.legendSettings.itemValueText = "{valueY}";
+            series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY}[/]";
+            series.strokeWidth = 3;
             return series;
         }
         // Create array of syms for creating multiple series
@@ -72,16 +56,13 @@ export default class App extends React.Component {
             }
           }
 
-
-        const volume = {
-            "query": "0!select sum size*price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
+        const variance = {
+            "query": "0!select dev price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
             "response": "true",
             "type": "sync"
         };
 
-    
-
-        axios.post(`https://localhost:8090/executeQuery`, volume, config)
+        axios.post(`https://localhost:8090/executeQuery`, variance, config)
         .then(res => {
             var gwData = res.data.result;
             console.log(gwData);
@@ -92,11 +73,11 @@ export default class App extends React.Component {
             for (key = 0;key < gwData.length;key+=sym_array.length) {     
                     stockChartValuesFunction.push({
                         date: new Date(gwData[key].time),
-                        [gwData[key].sym]: gwData[key].size,
+                        [gwData[key].sym]: gwData[key].price,
                     });
 
                     for (i = 1; i < sym_array.length; i++) {
-                        stockChartValuesFunction[j][gwData[key + i].sym] = gwData[key + i].size
+                        stockChartValuesFunction[j][gwData[key + i].sym] = gwData[key + i].price
                     }
                     j++
             }
@@ -106,7 +87,7 @@ export default class App extends React.Component {
     }
         render() {
             return (
-            <div id="chartdiv" style={{ width: "90%", height: "500px" }}></div>
+            <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
             );
       }
 }
