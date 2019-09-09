@@ -37,9 +37,31 @@ export default class QRest_gw_max extends React.Component {
             "type": "sync"
         };
 
-        axios.post(`https://localhost:8090/executeQuery`, this.state.empty, config)
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
-            var rows = res.data.result;
+            let rows = res.data.result;
+            const newRows = rows;
+            this.setState({ newRows });
+        })
+    }
+
+    updateGraph() {
+        let config = {
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Basic dXNlcjpwYXNz"
+            }
+          }
+
+        const empty = {
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03",
+            "response": "true",
+            "type": "sync"
+        };
+
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        .then(res => {
+            let rows = res.data.result;
             const newRows = rows;
             this.setState({ newRows });
         })
@@ -53,7 +75,7 @@ export default class QRest_gw_max extends React.Component {
                 <p>Title</p>
             <Paper className={this.state.classes.root}>
                 <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-  <Dropdown.Item >Some action</Dropdown.Item>
+  <Dropdown.Item onClick={() => this.updateGraph()}>Some action</Dropdown.Item>
   <Dropdown.Item >Another action</Dropdown.Item>
   <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
 </DropdownButton>
