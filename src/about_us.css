@@ -5,7 +5,28 @@
     margin-bottom: 16px;
     padding: 0 8px;
   }
+
+  .App {
+    text-align: center;
+  }
   
+  .App-logo {
+    /* animation: App-logo-spin infinite 20s linear; */
+    height: 20vmin;
+    pointer-events: none;
+    position: Absolute; top :0px; left: 10px;
+  }
+
+  .App-header {
+    background-color: #163237;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
   /* Display the columns below each other instead of side by side on small screens */
   @media screen and (max-width: 300px) {
     .column {

@@ -24,6 +24,10 @@ export default class QRest_gw_max extends React.Component {
     }
     
     componentDidMount() {
+        this.updateGraph()
+    }
+
+    updateGraph() {
         let config = {
             headers: {
                 "Accept": "*/*",
@@ -32,7 +36,7 @@ export default class QRest_gw_max extends React.Component {
           }
 
         const empty = {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.04",
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in .z.d",
             "response": "true",
             "type": "sync"
         };
@@ -45,7 +49,7 @@ export default class QRest_gw_max extends React.Component {
         })
     }
 
-    updateGraph() {
+    updateGraph2() {
         let config = {
             headers: {
                 "Accept": "*/*",
@@ -54,7 +58,29 @@ export default class QRest_gw_max extends React.Component {
           }
 
         const empty = {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.03",
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1),sym from trade where (\"d\"$time) in (.z.d;.z.d-1)",
+            "response": "true",
+            "type": "sync"
+        };
+
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        .then(res => {
+            let rows = res.data.result;
+            const newRows = rows;
+            this.setState({ newRows });
+        })
+    }
+
+    updateGraph3() {
+        let config = {
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Basic dXNlcjpwYXNz"
+            }
+          }
+
+        const empty = {
+            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1;.z.d-2),sym from trade where (\"d\"$time) in (.z.d;.z.d-1;.z.d-2)",
             "response": "true",
             "type": "sync"
         };
@@ -68,22 +94,19 @@ export default class QRest_gw_max extends React.Component {
     }
 
     render() {
-    
-
         return (
             <div>
-                <p>Title</p>
+                <p>Max and Min Prices by Highest Traded Sym</p>
             <Paper className={this.state.classes.root}>
-                <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-  <Dropdown.Item onClick={() => this.updateGraph()}>Some action</Dropdown.Item>
-  <Dropdown.Item >Another action</Dropdown.Item>
-  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-</DropdownButton>
+                <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
+                    <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
+                </DropdownButton>
                 <Table className={this.state.classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>date</TableCell>
-                            <TableCell align="right">Sym</TableCell>
+                            <TableCell>Sym</TableCell>
                             <TableCell align="right">Volume</TableCell>
                             <TableCell align="right">Max Price</TableCell>
                             <TableCell align="right">Min Price</TableCell>
@@ -93,9 +116,8 @@ export default class QRest_gw_max extends React.Component {
                         {this.state.newRows.map(row => (
                             <TableRow>
                                 <TableCell component="th" scope="row">
-                                    {row.time}
+                                    {row.sym}
                                 </TableCell>
-                                <TableCell align="right">{row.sym}</TableCell>
                                 <TableCell align="right">{row.volume}</TableCell> 
                                 <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
                                 <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
