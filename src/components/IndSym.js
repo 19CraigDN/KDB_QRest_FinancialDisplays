@@ -54,7 +54,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
+            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -87,7 +87,7 @@ export default class App extends React.Component {
         chart.data = stockChartValuesFunction;
         //console.log(chart.data[chart.data.length - 1])
         })
-        var onlysym = this.props.indsym;
+        var onlysym = this.props.indsym.symbs;
         let interval;
         function startInterval() {
         interval = setInterval(function() {

@@ -39,7 +39,7 @@ export default class App extends React.Component {
             return series;
         }
         // Create array of syms for creating multiple series
-        var sym_array = this.props.indsym.split('`');
+        var sym_array = this.props.indsym.symbs.split('`');
         sym_array.shift();
         for (var key in sym_array){
             createSeries(sym_array[key], sym_array[key]);
@@ -64,16 +64,16 @@ export default class App extends React.Component {
           }
 
         const ravg = {
-            "query": "0!update price:avgs price by sym from select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.03D00:00:00;\"p\"$2019.09.03D23:59:59)",
+            "query": "0!update price:avgs price by sym from select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + ";\"p\"$" + this.props.indsym.dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
         const cprice = {
-            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
+            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + " ;\"p\"$" + this.props.indsym.dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
-
+ 
         axios.post(`https://localhost:8090/executeQuery`, cprice, config)
         .then(res => {
             var gwData = res.data.result;
@@ -95,7 +95,8 @@ export default class App extends React.Component {
         chart.data = stockChartValuesFunction;
         })
 
-        var myUpdate = this.props.indsym;
+        var myUpdate = this.props.indsym.symbs;
+        var dates = this.props.indsym.dates;
         let interval;
         function startInterval() {
         interval = setInterval(function() {
@@ -108,7 +109,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "-" + sym_array.length + "#0!select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
+            "query": "-" + sym_array.length +"#0!select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$" + dates[0] + ";\"p\"$" + dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
