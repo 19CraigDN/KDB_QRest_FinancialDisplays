@@ -92,11 +92,6 @@ export default class QRest_gw_max extends React.Component {
             <div>
                 <p>Max and Min Prices by Highest Traded Sym</p>
                 <Paper className={this.state.classes.root}>
-                    <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
-                        <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
-                    </DropdownButton>
                     <Table className={this.state.classes.table}>
                         <TableHead>
                             <TableRow>
@@ -119,6 +114,11 @@ export default class QRest_gw_max extends React.Component {
                             ))}
                         </TableBody>
                     </Table>
+                    <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
+                        <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
+                    </DropdownButton>
                 </Paper>
             </div>
         );
