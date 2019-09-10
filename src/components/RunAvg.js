@@ -21,6 +21,8 @@ export default class App extends React.Component {
         dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]d MMM");
         dateAxis.interpolationDuration = 10000;
         dateAxis.rangeChangeDuration = 0;
+        dateAxis.tooltipDateFormat = "hh:mm:ss";
+
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.interpolationDuration = 10000;

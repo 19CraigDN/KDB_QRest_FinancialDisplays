@@ -21,6 +21,8 @@ export default class App extends React.Component {
         dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]d MMM");
         dateAxis.interpolationDuration = 10000;
         dateAxis.rangeChangeDuration = 0;
+        dateAxis.tooltipDateFormat = "hh:mm:ss";
+
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.interpolationDuration = 10000;
@@ -63,11 +65,6 @@ export default class App extends React.Component {
             }
           }
 
-        const ravg = {
-            "query": "0!update price:avgs price by sym from select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + ";\"p\"$" + this.props.indsym.dates[1] + ")",
-            "response": "true",
-            "type": "sync"
-        };
         const cprice = {
             "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + " ;\"p\"$" + this.props.indsym.dates[1] + ")",
             "response": "true",
