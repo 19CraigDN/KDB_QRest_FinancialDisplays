@@ -1,7 +1,7 @@
 /* Three columns side by side */
 .column {
     float: left;
-    width: 24%;
+    width: 430px;
     margin-bottom: 16px;
     padding: 0 8px;
   }
@@ -17,11 +17,11 @@
   /* Add some shadows to create a card effect */
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    height: 635px;
+    height: 660px;
   }
   
   .image {
-    height: 400px;
+    height: 430px;
   }
 
   /* Some left and right padding inside the container */
@@ -57,5 +57,7 @@
   }
 
   .theteam{
-    
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-align:center;
   }
