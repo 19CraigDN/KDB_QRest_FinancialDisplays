@@ -40,7 +40,7 @@ export default class QRest extends React.Component {
             var syms = [];
             var stats = [{},{},{}];
             for(var i in tempData) {
-                syms.push({headerName: tempData[i].sym, field: tempData[i].sym});
+                syms.push({headerName: tempData[i].sym, field: tempData[i].sym, cellStyle: {color: 'red', 'background-color': 'green'}});
             }
             for(var j in tempData) {
                 stats[0][tempData[j].sym] = tempData[j].diff;

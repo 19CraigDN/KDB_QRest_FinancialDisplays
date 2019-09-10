@@ -34,6 +34,9 @@ function App() {
         <div label="Table">
           <Grid container spacing={3}>
             <Grid item xs={12}>
+              <Paper className={classes.paper}><QRest/></Paper>
+            </Grid>
+            <Grid item xs={12}>
               <Paper className={classes.paper}><Test indsym="`AAPL`GOOG`DELL`MSFT" /></Paper>
             </Grid>
             <Grid item xs={6}>
@@ -44,9 +47,6 @@ function App() {
             </Grid>
             <Grid item xs={5}>
               <Paper className={classes.paper}><QRest_gw /></Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}><QRest/></Paper>
             </Grid>
           </Grid>
         </div>
