@@ -7,8 +7,11 @@ import Tabs from './Tabs';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Test from './amtest.js';
-import IndSym from './components/IndSym.js'
+import Test from './components/MultiSym.js';
+import IndSym from './components/IndSym.js';
+import RunAvg from './components/RunAvg.js';
+import Variance from './components/variance.js';
+import Volume from './components/volumegraph.js';
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -23,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 let inp={symbs:"`MSFT" , dates: ["2019.09.10D00:00:00","2019.09.11D00:00:00"]}
+let inp1={symbs: "`AAPL`GOOG`DELL`MSFT", dates: ["2019.09.10D00:00:00","2019.09.11D00:00:00"]}
 
 function App() {
   const classes = useStyles();
@@ -36,7 +40,7 @@ function App() {
         <div label="Overview">
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}><Test indsym="`AAPL`GOOG`DELL`MSFT" /></Paper>
+              <Paper className={classes.paper}><Test indsym={inp1} /></Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}><QRest_gw_max /></Paper>
@@ -50,12 +54,15 @@ function App() {
           <IndSym indsym={inp}/>
         </div>
         <div label="Running Avg Price">
-
+          <RunAvg indsym={inp1}/>
         </div>
         <div label="Price Weighted Volume">
-
+          <Volume indsym={inp1}/>
         </div>
         <div label="Volatility">
+          <Variance indsym={inp1}/>
+        </div>
+        <div label="Meet the Team">
 
         </div>
       </Tabs>

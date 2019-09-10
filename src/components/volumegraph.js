@@ -49,7 +49,7 @@ export default class App extends React.Component {
             return series;
         }
         // Create array of syms for creating multiple series
-        var sym_array = this.props.indsym.split('`');
+        var sym_array = this.props.indsym.symbs.split('`');
         sym_array.shift();
         for (var key in sym_array){
             createSeries(sym_array[key], sym_array[key]);
@@ -75,7 +75,7 @@ export default class App extends React.Component {
 
 
         const volume = {
-            "query": "0!select sum size*price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
+            "query": "0!select sum size*price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs,
             "response": "true",
             "type": "sync"
         };
