@@ -9,7 +9,7 @@ import axios from 'axios';
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-export default class App extends React.Component { 
+export default class MyTest extends React.Component { 
     componentDidMount(){
         let chart = am4core.create("chartdiv", am4charts.XYChart);
 
@@ -26,10 +26,10 @@ export default class App extends React.Component {
         dateAxis.renderer.axisFills.template.disabled = true;
         dateAxis.renderer.ticks.template.disabled = true;
 
-        chart.events.on("datavalidated", function () {
+        /*chart.events.on("datavalidated", function () {
             dateAxis.zoom({ start: 14 / 15, end: 1.2 }, false, true);
         });
-        
+        */
         dateAxis.interpolationDuration = 10000;
         dateAxis.rangeChangeDuration = 0;
 
@@ -79,7 +79,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by 0D00:01:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.05D00:00:00;\"p\"$2019.09.06D23:59:59)",
+            "query": "0!select avg price by 0D00:01:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.05D00:00:00;\"p\"$2019.09.10D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -118,7 +118,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "-3#0!select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$2019.09.06D00:00:00;\"p\"$2019.09.06D23:59:59)",
+            "query": "-3#0!select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -147,7 +147,7 @@ startInterval();
     }
         render() {
             return (
-            <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+            <div id="chartdiv" style={{ width: "75%", height: "500px" }}></div>
             );
       }
 }

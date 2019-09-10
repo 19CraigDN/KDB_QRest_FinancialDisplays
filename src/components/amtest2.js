@@ -15,6 +15,7 @@ export default class App extends React.Component {
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+        // Set x-axis distance for times
         dateAxis.renderer.minGridDistance = 75;
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
@@ -59,8 +60,7 @@ export default class App extends React.Component {
             "response": "true",
             "type": "sync"
         };
-        var previousValue;
-        var tempcolor = chart.colors.getIndex(0);
+
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var gwData = res.data.result;
