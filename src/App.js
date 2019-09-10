@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Test from './amtest.js';
+import IndSym from './components/IndSym.js'
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -20,6 +21,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
 }));
+
+let inp={symbs:"`MSFT" , dates: ["2019.09.10D00:00:00","2019.09.11D00:00:00"]}
 
 function App() {
   const classes = useStyles();
@@ -44,7 +47,7 @@ function App() {
           </Grid>
         </div>
         <div label="Individual Sym">
-          After 'while, <em>Croc</em>!
+          <IndSym indsym={inp}/>
         </div>
         <div label="Running Avg Price">
 
