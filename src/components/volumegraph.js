@@ -41,6 +41,7 @@ export default class App extends React.Component {
             series.strokeWidth = 2;
             series.fillOpacity = 0.5;
             series.stacked = true;
+
             series.legendSettings.labelText = name;
             series.legendSettings.valueText = "{valueY.close}";
             series.legendSettings.itemLabelText = name;

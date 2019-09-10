@@ -42,8 +42,6 @@ export default class App extends React.Component {
         chart.scrollbarX.series.push(series);
 
         // Add cursor
-        
-    
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.xAxis = dateAxis;
         chart.cursor.snapToSeries = series;
@@ -56,7 +54,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.09D00:00:00;\"p\"$2019.09.09D23:59:59)",
+            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
             "response": "true",
             "type": "sync"
         };
@@ -102,7 +100,7 @@ export default class App extends React.Component {
               }
     
             const empty = {
-                "query": "-1#0!select avg price by sym, 0D00:00:10 xbar time from trade where sym in " + onlysym + ", time within (\"p\"$2019.09.09D00:00:00;\"p\"$2019.09.09D23:59:59)",
+                "query": "-1#0!select avg price by sym, 0D00:00:10 xbar time from trade where sym in " + onlysym + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
                 "response": "true",
                 "type": "sync"
             };
@@ -127,7 +125,7 @@ export default class App extends React.Component {
                         date: gwData[1].time,
                         price: gwData[1].price,
                         });
-                    chart.data.pop()
+                    //chart.data.pop()
                     chart.addData(graphUpdate); 
             })
         }, 10000);

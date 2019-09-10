@@ -16,10 +16,15 @@ export default class App extends React.Component {
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 75;
-        dateAxis.startLocation = 0.5;
+        dateAxis.startLocation = 0.0;
         dateAxis.endLocation = 0.75;
         dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]d MMM");
+        dateAxis.interpolationDuration = 10000;
+        dateAxis.rangeChangeDuration = 0;
+
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.interpolationDuration = 10000;
+        valueAxis.rangeChangeDuration = 500;
 
         // Create multiple series
         var series;
@@ -27,6 +32,7 @@ export default class App extends React.Component {
             series = chart.series.push(new am4charts.LineSeries());
             series.dataFields.valueY = field;
             series.dataFields.dateX = "date";
+            series.interpolationDuration = 500;
             series.name = name;
             series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY}[/]";
             series.strokeWidth = 3;
@@ -63,20 +69,14 @@ export default class App extends React.Component {
             "type": "sync"
         };
         const cprice = {
-            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.03D00:00:00;\"p\"$2019.09.03D23:59:59)",
-            "response": "true",
-            "type": "sync"
-        };
-        const variance = {
-            "query": "0!select dev price by 1D00:00:00 xbar time, sym from trade where sym in " + this.props.indsym,
+            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
             "response": "true",
             "type": "sync"
         };
 
-        axios.post(`https://localhost:8090/executeQuery`, variance, config)
+        axios.post(`https://localhost:8090/executeQuery`, cprice, config)
         .then(res => {
             var gwData = res.data.result;
-            console.log(gwData);
             // Formats the JSON from qrest to an array of objects
             let stockChartValuesFunction = [];
             let i = 0;
@@ -95,7 +95,46 @@ export default class App extends React.Component {
         chart.data = stockChartValuesFunction;
         })
 
+        var myUpdate = this.props.indsym;
+        let interval;
+        function startInterval() {
+        interval = setInterval(function() {
+
+        let config = {
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Basic dXNlcjpwYXNz"
+            }
+          }
+
+        const empty = {
+            "query": "-" + sym_array.length + "#0!select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$2019.09.10D00:00:00;\"p\"$2019.09.10D23:59:59)",
+            "response": "true",
+            "type": "sync"
+        };
+
+        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        .then(res => {
+            var gwData = res.data.result;
+            console.log(gwData);
+            // Formats the JSON from qrest to an array of objects
+            let stockChartValuesUpdate = [];
+            let i = 0;
+                    stockChartValuesUpdate.push({
+                        date: new Date(gwData[sym_array.length].time),
+                        [gwData[sym_array.length].sym]: gwData[sym_array.length].price,
+                    });
+
+                    for (i = 1; i < sym_array.length; i++) {
+                        stockChartValuesUpdate[0][gwData[sym_array.length + i].sym] = gwData[sym_array.length + i].price
+                    }
+        chart.addData(stockChartValuesUpdate)
+        })
+    }, 10000);
     }
+    startInterval();
+
+}
         render() {
             return (
             <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
