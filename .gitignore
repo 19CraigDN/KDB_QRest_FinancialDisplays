@@ -25,3 +25,6 @@ yarn-error.log*
 # Q-rest files
 application.properties
 q-REST-1.0.0_RELEASE.jar
+
+yarn.lock
+yarn.lock
