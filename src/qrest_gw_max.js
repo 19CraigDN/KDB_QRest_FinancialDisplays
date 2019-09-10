@@ -24,7 +24,7 @@ export default class QRest_gw_max extends React.Component {
     }
     
     componentDidMount() {
-        this.updateGraph()
+        this.updateGraph();
     }
 
     updateGraph() {
@@ -97,35 +97,35 @@ export default class QRest_gw_max extends React.Component {
         return (
             <div>
                 <p>Max and Min Prices by Highest Traded Sym</p>
-            <Paper className={this.state.classes.root}>
-                <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
-                    <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
-                </DropdownButton>
-                <Table className={this.state.classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Sym</TableCell>
-                            <TableCell align="right">Volume</TableCell>
-                            <TableCell align="right">Max Price</TableCell>
-                            <TableCell align="right">Min Price</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.newRows.map(row => (
+                <Paper className={this.state.classes.root}>
+                    <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
+                        <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
+                    </DropdownButton>
+                    <Table className={this.state.classes.table}>
+                        <TableHead>
                             <TableRow>
-                                <TableCell component="th" scope="row">
-                                    {row.sym}
-                                </TableCell>
-                                <TableCell align="right">{row.volume}</TableCell> 
-                                <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
-                                <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
+                                <TableCell>Sym</TableCell>
+                                <TableCell align="right">Volume</TableCell>
+                                <TableCell align="right">Max Price</TableCell>
+                                <TableCell align="right">Min Price</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.newRows.map(row => (
+                                <TableRow>
+                                    <TableCell component="th" scope="row">
+                                        {row.sym}
+                                    </TableCell>
+                                    <TableCell align="right">{row.volume}</TableCell> 
+                                    <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
+                                    <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
             </div>
         );
     }
