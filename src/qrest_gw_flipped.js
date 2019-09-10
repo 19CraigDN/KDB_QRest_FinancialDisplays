@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Table_Cell from './table_cell.js';
 
-export default class QRest_gw extends React.Component {
+export default class QRest_gw_flipped extends React.Component {
 
     state = {
         newRows: [],

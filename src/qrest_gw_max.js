@@ -13,16 +13,10 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default class QRest_gw_max extends React.Component {
     state = {
-        rows: [],
         newRows: [],
-        classes: "",
-        empty: {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in 2019.09.04",
-            "response": "true",
-            "type": "sync"
-        }
+        classes: ""
     }
-    
+
     componentDidMount() {
         this.updateGraph();
     }
@@ -33,7 +27,7 @@ export default class QRest_gw_max extends React.Component {
                 "Accept": "*/*",
                 "Authorization": "Basic dXNlcjpwYXNz"
             }
-          }
+        }
 
         const empty = {
             "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in .z.d",
@@ -42,11 +36,11 @@ export default class QRest_gw_max extends React.Component {
         };
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
-        .then(res => {
-            let rows = res.data.result;
-            const newRows = rows;
-            this.setState({ newRows });
-        })
+            .then(res => {
+                let rows = res.data.result;
+                const newRows = rows;
+                this.setState({ newRows });
+            })
     }
 
     updateGraph2() {
@@ -55,7 +49,7 @@ export default class QRest_gw_max extends React.Component {
                 "Accept": "*/*",
                 "Authorization": "Basic dXNlcjpwYXNz"
             }
-          }
+        }
 
         const empty = {
             "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1),sym from trade where (\"d\"$time) in (.z.d;.z.d-1)",
@@ -64,11 +58,11 @@ export default class QRest_gw_max extends React.Component {
         };
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
-        .then(res => {
-            let rows = res.data.result;
-            const newRows = rows;
-            this.setState({ newRows });
-        })
+            .then(res => {
+                let rows = res.data.result;
+                const newRows = rows;
+                this.setState({ newRows });
+            })
     }
 
     updateGraph3() {
@@ -77,7 +71,7 @@ export default class QRest_gw_max extends React.Component {
                 "Accept": "*/*",
                 "Authorization": "Basic dXNlcjpwYXNz"
             }
-          }
+        }
 
         const empty = {
             "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1;.z.d-2),sym from trade where (\"d\"$time) in (.z.d;.z.d-1;.z.d-2)",
@@ -86,11 +80,11 @@ export default class QRest_gw_max extends React.Component {
         };
 
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
-        .then(res => {
-            let rows = res.data.result;
-            const newRows = rows;
-            this.setState({ newRows });
-        })
+            .then(res => {
+                let rows = res.data.result;
+                const newRows = rows;
+                this.setState({ newRows });
+            })
     }
 
     render() {
@@ -118,7 +112,7 @@ export default class QRest_gw_max extends React.Component {
                                     <TableCell component="th" scope="row">
                                         {row.sym}
                                     </TableCell>
-                                    <TableCell align="right">{row.volume}</TableCell> 
+                                    <TableCell align="right">{row.volume}</TableCell>
                                     <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
                                     <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
                                 </TableRow>

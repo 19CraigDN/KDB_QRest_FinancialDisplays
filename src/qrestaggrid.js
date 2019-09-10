@@ -6,8 +6,8 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 export default class QRest extends React.Component {
     state = {
-        columnDefs: [],
-        rowData: []
+        syms: [],
+        stats: []
     }
 
     componentDidMount() {
@@ -19,7 +19,7 @@ export default class QRest extends React.Component {
           }
 
         const empty = {
-            "query": "select time from trades",
+            "query": "select percent:100*((last price)-first price)%last price,diff:(last price)-first price,lastPrice:last price by sym from trade where (\"d\"$time)=.z.d",
             "response": "true",
             "type": "sync"
         };
@@ -27,6 +27,7 @@ export default class QRest extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var tempData = res.data.result;
+            /*
             for(var i in tempData) {
                 var date = new Date(tempData[i].time);
                 var hours = date.getHours();
@@ -35,11 +36,25 @@ export default class QRest extends React.Component {
                 var ms = "00" + date.getMilliseconds();
                 var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '.' + ms.substr(-3);
                 tempData[i].time = formattedTime;
+            }*/
+            var syms = [];
+            var stats = [{},{},{}];
+            for(var i in tempData) {
+                syms.push({headerName: tempData[i].sym, field: tempData[i].sym});
             }
-            const rowData = tempData;
-            this.setState({ columnDefs:[{
+            for(var j in tempData) {
+                stats[0][tempData[j].sym] = tempData[j].diff;
+                stats[1][tempData[j].sym] = tempData[j].percent;
+                stats[2][tempData[j].sym] = tempData[j].lastPrice;
+            }
+            console.log(syms);
+            console.log(stats);
+            this.setState({syms,stats});
+            console.log(this.state.syms);
+            /*
+            this.setState({ syms: rowDatacolumnDefs:[{
                 headerName: "Time", field: "time"
-            }],rowData });
+            }],rowData });*/
         })
     }
 
@@ -48,12 +63,12 @@ export default class QRest extends React.Component {
             <div 
                 className="ag-theme-balham"
                 style={{ 
-                height: '140px', 
-                width: '210px' }} 
+                height: '500px', 
+                width: '2000px' }} 
             >
                 <AgGridReact
-                    columnDefs={this.state.columnDefs}
-                    rowData={this.state.rowData}>
+                    columnDefs={this.state.syms}
+                    rowData={this.state.stats}>
                 </AgGridReact>
             </div>
             /*<ul>

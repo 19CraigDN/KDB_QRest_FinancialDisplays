@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Test from './amtest.js';
+import QRest from './qrestaggrid'
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -27,23 +28,26 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" /> 
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
       <Tabs>
         <div label="Table">
           <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}><Test indsym="`AAPL`GOOG`DELL`MSFT"/></Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
-          </Grid>
-          <Grid item xs={1}>
-            <Paper className={classes.paper}>hi</Paper>
-          </Grid>
-          <Grid item xs={5}>
-            <Paper className={classes.paper}><QRest_gw/></Paper>
-          </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}><Test indsym="`AAPL`GOOG`DELL`MSFT" /></Paper>
+            </Grid>
+            <Grid item xs={6}>
+              <Paper className={classes.paper}><QRest_gw_max /></Paper>
+            </Grid>
+            <Grid item xs={1}>
+              <Paper className={classes.paper}>hi</Paper>
+            </Grid>
+            <Grid item xs={5}>
+              <Paper className={classes.paper}><QRest_gw /></Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}><QRest/></Paper>
+            </Grid>
           </Grid>
         </div>
         <div label="Something else">
