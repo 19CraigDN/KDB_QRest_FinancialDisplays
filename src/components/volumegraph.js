@@ -37,7 +37,7 @@ export default class App extends React.Component {
             series.dataFields.dateX = "date";
             series.name = name;
             series.calculatePercent = true;
-            series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY.percent}%[/]";
+            series.tooltipText = "[font-size:15]{name}: [bold font-size:15]{valueY.formatNumber('#.0a')}[/]";
             series.strokeWidth = 2;
             series.fillOpacity = 0.5;
             series.stacked = true;
