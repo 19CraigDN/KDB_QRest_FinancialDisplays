@@ -50,6 +50,7 @@
     text-align: center;
     cursor: pointer;
     width: 100%;
+    
   }
   
   .button:hover {
@@ -60,4 +61,8 @@
     font-weight: 700;
     letter-spacing: -1px;
     text-align:center;
+  }
+
+  .contactcolor{
+    color: white;
   }
