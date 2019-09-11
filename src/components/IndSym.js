@@ -162,8 +162,17 @@ export default class App extends React.Component {
             return (
                 <div><div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
             <div>
-            <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
-                    <Dropdown.Item onClick={() => this.funcy("`DELL")}>Current Day</Dropdown.Item>
+            <DropdownButton id="dropdown-basic-button" title="Choose Sym">
+                    <Dropdown.Item onClick={() => this.funcy("`AAPL")}>AAPL</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`AIG")}>AIG</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`AMD")}>AMD</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`DELL")}>DELL</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`DOW")}>DOW</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`GOOG")}>GOOG</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`HPQ")}>HPQ</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`IBM")}>IBM</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`INTC")}>INTC</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.funcy("`MSFT")}>MSFT</Dropdown.Item>
                 </DropdownButton>
             </div>
             </div>

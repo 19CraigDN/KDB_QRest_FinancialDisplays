@@ -18,7 +18,7 @@ export default class App extends React.Component {
         dateAxis.renderer.minGridDistance = 75;
         dateAxis.startLocation = 0.0;
         dateAxis.endLocation = 0.75;
-        dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]d MMM");
+        dateAxis.periodChangeDateFormats.setKey("day", "[font-size:25]d MMM");
         dateAxis.interpolationDuration = 10000;
         dateAxis.rangeChangeDuration = 0;
         dateAxis.tooltipDateFormat = "hh:mm:ss";
