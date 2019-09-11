@@ -12,6 +12,7 @@ import IndSym from './components/IndSym.js';
 import RunAvg from './components/RunAvg.js';
 import Variance from './components/variance.js';
 import Volume from './components/volumegraph.js';
+import LiveData from './components/LiveData.js'
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +52,17 @@ function App() {
           </Grid>
         </div>
         <div label="Individual Sym">
-          <IndSym indsym={inp}/>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}><LiveData indsym={inp}/></Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}><IndSym indsym={inp}/></Paper>
+          </Grid>
+        </Grid>
         </div>
         <div label="Running Avg Price">
           <RunAvg indsym={inp1}/>
@@ -63,7 +74,6 @@ function App() {
           <Variance indsym={inp1}/>
         </div>
         <div label="Meet the Team">
-
         </div>
       </Tabs>
     </div>

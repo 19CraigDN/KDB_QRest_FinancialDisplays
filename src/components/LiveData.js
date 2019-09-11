@@ -5,13 +5,28 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_kelly from "@amcharts/amcharts4/themes/kelly.js";
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 am4core.useTheme(am4themes_kelly);
 am4core.useTheme(am4themes_animated);
 
 export default class App extends React.Component { 
+    state= {symbs:this.props.indsym.symbs, dates:this.props.indsym.dates}
+
+    funcy(symbs){
+        this.setState({symbs},()=>{
+            this.createGraph();
+        });
+        console.log(this.state);
+    }
+
     componentDidMount(){
-        let chart = am4core.create("chartdiv", am4charts.XYChart);
+        this.createGraph();
+    }
+
+    createGraph(){
+        let chart = am4core.create("chartdiv1", am4charts.XYChart);
         chart.hiddenState.properties.opacity = 0;
         chart.padding(0, 0, 0, 0);
         chart.zoomOutButton.disabled = true;
@@ -26,8 +41,8 @@ export default class App extends React.Component {
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-        dateAxis.renderer.minGridDistance = 75;
-        dateAxis.dateFormats.setKey("second", "ss");
+        dateAxis.renderer.minGridDistance = 25;
+        dateAxis.dateFormats.setKey("second", "[font-size:15]ss");
         dateAxis.periodChangeDateFormats.setKey("second", "[bold]h:mm a");
         dateAxis.periodChangeDateFormats.setKey("minute", "[bold]h:mm a");
         dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]h:mm a");
@@ -82,7 +97,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:00:01 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$.z.p-00:02:00;\"p\"$.z.p+00:02:00)",
+            "query": "0!select avg price by sym, 0D00:00:01 xbar time from trade where sym in " + this.state.symbs + ", time within (\"p\"$.z.p-00:01:00;\"p\"$.z.p+00:02:00)",
             "response": "true",
             "type": "sync"
         };
@@ -114,7 +129,7 @@ export default class App extends React.Component {
             }
         chart.data = stockChartValuesFunction;
         })
-        var onlysym = this.props.indsym.symbs;
+        var onlysym = this.state.symbs;
         let interval;
         function startInterval() {
         interval = setInterval(function() {
@@ -193,7 +208,22 @@ export default class App extends React.Component {
         }
         render() {
             return (
-            <div id="chartdiv" style={{ width: "500px", height: "500px" }}></div>
+                <div><div id="chartdiv1" style={{ width: "100%", height: "500px" }}></div>
+                <div>
+                <DropdownButton id="dropdown-basic-button" title="Choose Sym">
+                        <Dropdown.Item onClick={() => this.funcy("`AAPL")}>AAPL</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`AIG")}>AIG</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`AMD")}>AMD</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`DELL")}>DELL</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`DOW")}>DOW</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`GOOG")}>GOOG</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`HPQ")}>HPQ</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`IBM")}>IBM</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`INTC")}>INTC</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`MSFT")}>MSFT</Dropdown.Item>
+                    </DropdownButton>
+                </div>
+                </div>
             );
       }
 }
