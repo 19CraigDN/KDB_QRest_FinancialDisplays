@@ -20,7 +20,12 @@ export default class App extends React.Component {
         this.setState({symbs},()=>{
             this.createGraph();
         });
-        console.log(this.state);
+    }
+
+    funcy2(date){
+        this.setState({dates: [date,".z.d+1"]},()=>{
+            this.createGraph();
+        });
     }
 
     componentDidMount(){
@@ -182,6 +187,11 @@ export default class App extends React.Component {
                     <Dropdown.Item onClick={() => this.funcy("`INTC")}>INTC</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.funcy("`MSFT")}>MSFT</Dropdown.Item>
                 </DropdownButton>
+                    <DropdownButton id="dropdown-basic-button" title="Choose Date">
+                        <Dropdown.Item onClick={() => this.funcy2(".z.d")}>One Day</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy2(".z.d-1")}>Two Days</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy2(".z.d-2")}>Three Days</Dropdown.Item>
+                    </DropdownButton>
             </div>
             </div>
             );
