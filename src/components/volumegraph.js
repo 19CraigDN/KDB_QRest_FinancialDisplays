@@ -21,6 +21,7 @@ export default class App extends React.Component {
         var label = chart.chartContainer.createChild(am4core.Label);
         label.text = "Delayed Price. Currency in GBP";
         label.fontSize = 11;
+        label.align = "right";
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
