@@ -25,8 +25,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-let inp={symbs:"`MSFT" , dates: [".z.d",".z.d+1"]}
-let inp1={symbs: "`AAPL`GOOG`DELL`MSFT`AIG`AMD`DOW`HPQ`IBM`INTC", dates: [".z.d",".z.d+1"]}
+let inp={symbs:"`AAPL" , dates: [".z.d",".z.d+1"]}
+let inp1={symbs: "`AAPL`GOOG`DELL`MSFT`AIG`AMD`DOW`HPQ`IBM`INTC", dates: [".z.d-1",".z.d+1"]}
 
 function App() {
   const classes = useStyles();

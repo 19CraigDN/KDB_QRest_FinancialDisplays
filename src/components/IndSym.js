@@ -30,6 +30,14 @@ export default class App extends React.Component {
     createGraph(){
         let chart = am4core.create("chartdiv", am4charts.XYChart);
 
+        var title = chart.titles.create();
+        title.text = "Price for " + this.state.symbs.replace('`','');
+        title.fontSize = 20;
+
+        var label = chart.chartContainer.createChild(am4core.Label);
+        label.text = "Delayed Price. Currency in GBP";
+        label.fontSize = 11;
+
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 75;
@@ -37,7 +45,6 @@ export default class App extends React.Component {
         dateAxis.interpolationDuration = 100;
         dateAxis.rangeChangeDuration = 0;
         dateAxis.tooltipDateFormat = "hh:mm:ss";
-
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.interpolationDuration = 500;

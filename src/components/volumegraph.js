@@ -14,6 +14,14 @@ export default class App extends React.Component {
         let chart = am4core.create("chartdiv", am4charts.XYChart);
         chart.numberFormatter.bigNumberPrefixes[2].suffix="B";
 
+        var title = chart.titles.create();
+        title.text = "Price Weighted Volumes";
+        title.fontSize = 20;
+
+        var label = chart.chartContainer.createChild(am4core.Label);
+        label.text = "Delayed Price. Currency in GBP";
+        label.fontSize = 11;
+
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 75;

@@ -16,6 +16,14 @@ export default class App extends React.Component {
         chart.padding(0, 0, 0, 0);
         chart.zoomOutButton.disabled = true;
 
+        var title = chart.titles.create();
+        title.text = "Live Price for " + this.state.symbs.replace('`','');
+        title.fontSize = 20;
+
+        var label = chart.chartContainer.createChild(am4core.Label);
+        label.text = "Live Price. Currency in GBP";
+        label.fontSize = 11;
+
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 75;
