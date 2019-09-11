@@ -5,12 +5,29 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_kelly from "@amcharts/amcharts4/themes/kelly.js";
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 am4core.useTheme(am4themes_kelly);
 am4core.useTheme(am4themes_animated);
 
+
 export default class App extends React.Component { 
+    
+    state= {symbs:this.props.indsym.symbs, dates:this.props.indsym.dates}
+
+    funcy(symbs){
+        this.setState({symbs},()=>{
+            this.createGraph();
+        });
+        console.log(this.state);
+    }
+
     componentDidMount(){
+        this.createGraph();
+    }
+
+    createGraph(){
         let chart = am4core.create("chartdiv", am4charts.XYChart);
 
         // Create axes
@@ -56,7 +73,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + ";\"p\"$" + this.props.indsym.dates[1] + ")",
+            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.state.symbs + ", time within (\"p\"$" + this.state.dates[0] + ";\"p\"$" + this.state.dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
@@ -89,8 +106,8 @@ export default class App extends React.Component {
         chart.data = stockChartValuesFunction;
         //console.log(chart.data[chart.data.length - 1])
         })
-        var dates = this.props.indsym.dates;
-        var onlysym = this.props.indsym.symbs;
+        var dates = this.state.dates;
+        var onlysym = this.state.symbs;
         let interval;
         function startInterval() {
         interval = setInterval(function() {
@@ -135,11 +152,21 @@ export default class App extends React.Component {
 
     }
 
+
     startInterval();
         }
+    
+        
+
         render() {
             return (
-            <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+                <div><div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+            <div>
+            <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
+                    <Dropdown.Item onClick={() => this.funcy("`DELL")}>Current Day</Dropdown.Item>
+                </DropdownButton>
+            </div>
+            </div>
             );
       }
 }
