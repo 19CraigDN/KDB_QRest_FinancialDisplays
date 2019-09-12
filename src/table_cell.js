@@ -22,7 +22,7 @@ export default class Table_Cell extends React.Component {
 
     render() {
         return (
-            <TableCell style={{backgroundColor:this.greenRed(), color: 'white',}} align="right">{this.correctAttr()}</TableCell>
+            <TableCell style={{color: this.greenRed(),}} align="right">{this.correctAttr()}</TableCell>
         );
     }
 }

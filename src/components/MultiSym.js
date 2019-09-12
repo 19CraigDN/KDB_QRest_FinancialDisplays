@@ -5,12 +5,26 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_kelly from "@amcharts/amcharts4/themes/kelly.js";
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 am4core.useTheme(am4themes_kelly);
 am4core.useTheme(am4themes_animated);
 
 export default class App extends React.Component { 
+    state= {symbs:this.props.indsym.symbs, dates:this.props.indsym.dates}
+
+    funcy2(date){
+        this.setState({dates: [date,".z.d+1"]},()=>{
+            this.createGraph();
+        });
+    }
+
     componentDidMount(){
+        this.createGraph();
+    }
+
+    createGraph(){
         let chart = am4core.create("chartdiv", am4charts.XYChart);
 
         var title = chart.titles.create();
@@ -75,7 +89,7 @@ export default class App extends React.Component {
           }
 
         const cprice = {
-            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + " ;\"p\"$" + this.props.indsym.dates[1] + ")",
+            "query": "0!select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.state.dates[0] + " ;\"p\"$" + this.state.dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
@@ -102,7 +116,7 @@ export default class App extends React.Component {
         })
 
         var myUpdate = this.props.indsym.symbs;
-        var dates = this.props.indsym.dates;
+        var dates = this.state.dates;
         let interval;
         function startInterval() {
         interval = setInterval(function() {
@@ -143,7 +157,16 @@ export default class App extends React.Component {
 }
         render() {
             return (
+                <div>
             <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+            
+            <div class="blah">
+            <DropdownButton class="blah" id="dropdown-basic-button" title="Choose Date">
+                <Dropdown.Item onClick={() => this.funcy2(".z.d")}>One Day</Dropdown.Item>
+                <Dropdown.Item onClick={() => this.funcy2(".z.d-1")}>Two Days</Dropdown.Item>
+                <Dropdown.Item onClick={() => this.funcy2(".z.d-2")}>Three Days</Dropdown.Item>
+            </DropdownButton>
+    </div></div>
             );
       }
 }

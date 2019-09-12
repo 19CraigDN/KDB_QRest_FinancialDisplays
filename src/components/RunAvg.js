@@ -116,7 +116,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "-" + sym_array.length +"#0!update price:avgs price by sym from select avg price by 0D00:00:10 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$" + dates[0] + ";\"p\"$" + dates[1] + ")",
+            "query": "-" + sym_array.length +"#0!update price:avgs price by sym from select avg price by 0D00:05:00 xbar time, sym from trade where sym in " + myUpdate + ", time within (\"p\"$" + dates[0] + ";\"p\"$" + dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
@@ -138,7 +138,7 @@ export default class App extends React.Component {
                     }
         chart.addData(stockChartValuesUpdate)
         })
-    }, 10000);
+    }, 305000);
     }
     startInterval();
 
