@@ -174,8 +174,8 @@ export default class App extends React.Component {
         render() {
             return (
                 <div><div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-            <div>
-            <DropdownButton id="dropdown-basic-button" title="Choose Sym">
+            <div class="blah">
+            <DropdownButton class="blah" id="dropdown-basic-button" title="Choose Sym">
                     <Dropdown.Item onClick={() => this.funcy("`AAPL")}>AAPL</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.funcy("`AIG")}>AIG</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.funcy("`AMD")}>AMD</Dropdown.Item>
@@ -187,7 +187,9 @@ export default class App extends React.Component {
                     <Dropdown.Item onClick={() => this.funcy("`INTC")}>INTC</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.funcy("`MSFT")}>MSFT</Dropdown.Item>
                 </DropdownButton>
-                    <DropdownButton id="dropdown-basic-button" title="Choose Date">
+                </div>
+                <div class="blah">
+                    <DropdownButton class="blah" id="dropdown-basic-button" title="Choose Date">
                         <Dropdown.Item onClick={() => this.funcy2(".z.d")}>One Day</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.funcy2(".z.d-1")}>Two Days</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.funcy2(".z.d-2")}>Three Days</Dropdown.Item>

@@ -123,7 +123,6 @@ export default class App extends React.Component {
         axios.post(`https://localhost:8090/executeQuery`, empty, config)
         .then(res => {
             var gwData = res.data.result;
-            console.log(gwData);
             // Formats the JSON from qrest to an array of objects
             let stockChartValuesUpdate = [];
             let i = 0;

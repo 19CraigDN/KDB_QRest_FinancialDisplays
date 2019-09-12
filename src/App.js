@@ -12,7 +12,8 @@ import IndSym from './components/IndSym.js';
 import RunAvg from './components/RunAvg.js';
 import Variance from './components/variance.js';
 import Volume from './components/volumegraph.js';
-import LiveData from './components/LiveData.js'
+import LiveData from './components/LiveData.js';
+import SummaryTable from './SummaryTable.js';
 require('./styles.css');
 
 const useStyles = makeStyles(theme => ({
@@ -41,20 +42,20 @@ function App() {
         <div label="Overview">
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}><Test indsym={inp1} /></Paper>
+              <Paper className={classes.paper}><Test indsym={inp1}/></Paper>
             </Grid>
             <Grid item xs={6}>
-              <Paper className={classes.paper}><QRest_gw_max /></Paper>
+              <Paper className={classes.paper}><QRest_gw_max/></Paper>
             </Grid>
             <Grid item xs={6}>
-              <Paper className={classes.paper}><QRest_gw /></Paper>
+              <Paper className={classes.paper}><QRest_gw/></Paper>
             </Grid>
           </Grid>
         </div>
         <div label="Individual Sym">
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Paper className={classes.paper}><QRest_gw_max/></Paper>
+            <Paper className={classes.paper}><SummaryTable indsym={inp}/></Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}><LiveData indsym={inp}/></Paper>

@@ -14,11 +14,19 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 export default class App extends React.Component {
     state = {
         newRows: [],
+        symbs: this.props.indsym.symbs,
         classes: ""
     }
 
+    funcy(symbs){
+        this.setState({symbs},()=>{
+            this.updateGraph();
+        });
+        console.log(this.state);
+    }
+
     componentDidMount() {
-        this.updateGraph();
+        this.interval = setInterval(() => this.updateGraph(), 2000);
     }
 
     updateGraph() {
@@ -29,97 +37,85 @@ export default class App extends React.Component {
             }
         }
 
-        const empty = {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time),sym from trade where (\"d\"$time) in .z.d",
+        const empty1 = {
+            "query": "select currPrice: last price, volume:sum size,minPrice:min price,maxPrice:max price from trade where sym=" + this.state.symbs + ",(\"d\"$time)=.z.d",
             "response": "true",
             "type": "sync"
         };
 
-        axios.post(`https://localhost:8090/executeQuery`, empty, config)
-            .then(res => {
-                let rows = res.data.result;
-                const newRows = rows;
-                this.setState({ newRows });
-            })
-    }
-
-    updateGraph2() {
-        let config = {
-            headers: {
-                "Accept": "*/*",
-                "Authorization": "Basic dXNlcjpwYXNz"
-            }
+        const empty2 = {
+            "query": "select close:last price from trade where sym=" + this.state.symbs + ",(\"d\"$time)=.z.d-1,time<17:00:00",
+            "response": "true",
+            "type": "sync"
         }
 
-        const empty = {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1),sym from trade where (\"d\"$time) in (.z.d;.z.d-1)",
+        const empty3 = {
+            "query": "select open:first price from trade where sym=" + this.state.symbs + ",(\"d\"$time)=.z.d,time>08:00:00",
             "response": "true",
             "type": "sync"
-        };
-
-        axios.post(`https://localhost:8090/executeQuery`, empty, config)
-            .then(res => {
-                let rows = res.data.result;
-                const newRows = rows;
-                this.setState({ newRows });
-            })
-    }
-
-    updateGraph3() {
-        let config = {
-            headers: {
-                "Accept": "*/*",
-                "Authorization": "Basic dXNlcjpwYXNz"
-            }
         }
 
-        const empty = {
-            "query": "`volume xdesc select volume:sum size,minPrice:min price,maxPrice:max price by (\"d\"$time)in (.z.d;.z.d-1;.z.d-2),sym from trade where (\"d\"$time) in (.z.d;.z.d-1;.z.d-2)",
-            "response": "true",
-            "type": "sync"
-        };
-
-        axios.post(`https://localhost:8090/executeQuery`, empty, config)
+        axios.post(`https://localhost:8090/executeQuery`, empty1, config)
             .then(res => {
-                let rows = res.data.result;
-                const newRows = rows;
-                this.setState({ newRows });
+                var newRows = [res.data.result[1]];
+                axios.post(`https://localhost:8090/executeQuery`, empty2, config)
+                .then(res => {
+                    newRows[0].close = res.data.result[0].close;
+                    axios.post(`https://localhost:8090/executeQuery`, empty3, config)
+                    .then(res => {
+                        newRows[0].open = res.data.result[1].open;
+                        this.setState({ newRows });
+                    })
+                })
             })
     }
 
     render() {
         return (
             <div>
-                <p>Max and Min Prices by Highest Traded Sym</p>
+                <p>Summary table for {this.state.symbs.replace('`','')}</p>
                 <Paper className={this.state.classes.root}>
                     <Table className={this.state.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Sym</TableCell>
-                                <TableCell align="right">Volume</TableCell>
-                                <TableCell align="right">Max Price</TableCell>
-                                <TableCell align="right">Min Price</TableCell>
+                                <TableCell>Current Price</TableCell>
+                                <TableCell>Volume</TableCell>
+                                <TableCell>Max Price</TableCell>
+                                <TableCell>Min Price</TableCell>
+                                <TableCell>Close</TableCell>
+                                <TableCell>Open</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.newRows.map(row => (
-                                <TableRow>
+                                {this.state.newRows.map(row => (
+                                    <TableRow>
                                     <TableCell component="th" scope="row">
-                                        {row.sym}
+                                        {row.currPrice.toFixed(2)}
                                     </TableCell>
-                                    <TableCell align="right">{row.volume}</TableCell>
-                                    <TableCell align="right">{row.maxPrice.toFixed(2)}</TableCell>
-                                    <TableCell align="right">{row.minPrice.toFixed(2)}</TableCell>
-                                </TableRow>
-                            ))}
+                                    <TableCell>{row.volume}</TableCell>
+                                    <TableCell>{row.maxPrice.toFixed(2)}</TableCell>
+                                    <TableCell>{row.minPrice.toFixed(2)}</TableCell>
+                                    <TableCell>{row.close.toFixed(2)}</TableCell>
+                                    <TableCell>{row.open.toFixed(2)}</TableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
-                    <DropdownButton id="dropdown-basic-button" title="Choose Date Range">
-                        <Dropdown.Item onClick={() => this.updateGraph()}>Current Day</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.updateGraph2()}>Last Two Days</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.updateGraph3()}>Last Three Days</Dropdown.Item>
-                    </DropdownButton>
                 </Paper>
+                <div>
+                <DropdownButton id="dropdown-basic-button" title="Choose Sym">
+                        <Dropdown.Item onClick={() => this.funcy("`AAPL")}>AAPL</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`AIG")}>AIG</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`AMD")}>AMD</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`DELL")}>DELL</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`DOW")}>DOW</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`GOOG")}>GOOG</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`HPQ")}>HPQ</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`IBM")}>IBM</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`INTC")}>INTC</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.funcy("`MSFT")}>MSFT</Dropdown.Item>
+                    </DropdownButton>
+                </div>
             </div>
         );
     }
