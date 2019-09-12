@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Test indsym={inp} />
+        <Test/>
       </header>
     </div>
   );

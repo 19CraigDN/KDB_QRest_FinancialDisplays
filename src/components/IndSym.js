@@ -8,9 +8,18 @@ import axios from 'axios';
 
 am4core.useTheme(am4themes_kelly);
 am4core.useTheme(am4themes_animated);
-
+function handleClick () {
+    //this.setState({ symbs: "`DELL" });
+    console.log('click');
+ }
 export default class App extends React.Component { 
+    constructor(props) {
+        super(props);  
+        this.state = {symbs:this.props.indsym.symbs, dates:this.props.indsym.dates}
+    };
+  
     componentDidMount(){
+        console.log(this.state)
         let chart = am4core.create("chartdiv", am4charts.XYChart);
 
         // Create axes
@@ -42,7 +51,7 @@ export default class App extends React.Component {
         // Add scrollbar
         chart.scrollbarX = new am4charts.XYChartScrollbar();
         chart.scrollbarX.series.push(series);
-
+        console.log(chart.numberFormatter.bigNumberPrefixes)
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.xAxis = dateAxis;
@@ -56,7 +65,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$" + this.props.indsym.dates[0] + ";\"p\"$" + this.props.indsym.dates[1] + ")",
+            "query": "0!select avg price by sym, 0D00:05:00 xbar time from trade where sym in " + this.state.symbs + ", time within (\"p\"$" + this.state.dates[0] + ";\"p\"$" + this.state.dates[1] + ")",
             "response": "true",
             "type": "sync"
         };
@@ -89,8 +98,8 @@ export default class App extends React.Component {
         chart.data = stockChartValuesFunction;
         //console.log(chart.data[chart.data.length - 1])
         })
-        var dates = this.props.indsym.dates;
-        var onlysym = this.props.indsym.symbs;
+        var dates = this.state.dates;
+        var onlysym = this.state.symbs;
         let interval;
         function startInterval() {
         interval = setInterval(function() {
@@ -134,12 +143,16 @@ export default class App extends React.Component {
         }, 10000);
 
     }
-
     startInterval();
+
         }
+
         render() {
             return (
+            <div>
             <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+            <button onClick={this.handleClick}/>
+            </div>
             );
       }
 }

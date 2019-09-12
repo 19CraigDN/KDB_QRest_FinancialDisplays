@@ -18,11 +18,11 @@ export default class App extends React.Component {
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-        dateAxis.renderer.minGridDistance = 75;
-        dateAxis.dateFormats.setKey("second", "ss");
+        dateAxis.renderer.minGridDistance = 25;
+        dateAxis.dateFormats.setKey("second", "[font-size:15]ss");
         dateAxis.periodChangeDateFormats.setKey("second", "[bold]h:mm a");
         dateAxis.periodChangeDateFormats.setKey("minute", "[bold]h:mm a");
-        dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:25]h:mm a");
+        dateAxis.periodChangeDateFormats.setKey("hour", "[font-size:20]h:mm a");
         dateAxis.renderer.inside = true;
         dateAxis.renderer.axisFills.template.disabled = true;
         dateAxis.renderer.ticks.template.disabled = true;
@@ -49,7 +49,7 @@ export default class App extends React.Component {
         series.propertyFields.stroke = "color";
 
         chart.events.on("datavalidated", function () {
-            dateAxis.zoom({ start: 1 / 15, end: 1.2 }, false, true);
+            dateAxis.zoom({ start: 1 / 16, end: 1.4 }, false, true);
         });
 
 
@@ -74,7 +74,7 @@ export default class App extends React.Component {
           }
 
         const empty = {
-            "query": "0!select avg price by sym, 0D00:00:01 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$.z.p-00:02:00;\"p\"$.z.p+00:02:00)",
+            "query": "0!select avg price by sym, 0D00:00:01 xbar time from trade where sym in " + this.props.indsym.symbs + ", time within (\"p\"$.z.p-00:01:00;\"p\"$.z.p+00:02:00)",
             "response": "true",
             "type": "sync"
         };
