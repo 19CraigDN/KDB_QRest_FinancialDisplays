@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './UnknownFinance.PNG';
 import './App.css';
-<<<<<<< HEAD
 import QRest_gw_max from './qrest_gw_max';
 import QRest_gw from './qrest_gw';
 import Tabs from './Tabs';
@@ -30,9 +29,6 @@ const useStyles = makeStyles(theme => ({
 
 let inp={symbs:"`AAPL" , dates: [".z.d",".z.d+1"]}
 let inp1={symbs: "`AAPL`GOOG`DELL`MSFT`AIG`AMD`DOW`HPQ`IBM`INTC", dates: [".z.d-1",".z.d+1"]}
-=======
-import QRest_gw from './qrest_gw';
->>>>>>> origin
 
 function App() {
   const classes = useStyles();
@@ -41,21 +37,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-<<<<<<< HEAD
-=======
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <QRest_gw/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
->>>>>>> origin
       </header>
       <Tabs>
         <div label="Overview">
