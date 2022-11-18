@@ -24,7 +24,7 @@
     "react-bootstrap": "^1.0.0-beta.12",
     "react-bootstrap-dropdown-menu": "^1.1.15",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
+    "react-scripts": "5.0.1",
     "reactstrap": "^8.0.1"
   },
   "scripts": {
